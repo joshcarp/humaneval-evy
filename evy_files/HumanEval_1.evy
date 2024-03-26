@@ -4,11 +4,11 @@ func separate_paren_groups:[]string paren_string:string
         current_depth:num
         current_depth = 0
     
-        for c := range paren_string
-            if paren_string[c] == '('
+        for c := range (len paren_string)
+            if paren_string[c] == "("
                 current_depth = current_depth + 1
                 current_string = current_string + paren_string[c]
-            else if paren_string[c] == ')'
+            else if paren_string[c] == ")"
                 current_depth = current_depth - 1
                 current_string = current_string + paren_string[c]
     
@@ -21,11 +21,11 @@ func separate_paren_groups:[]string paren_string:string
     
         return result
 end
-func check candidate:any
-    assert ["(()())" "((()))" "()" "((())()())"] (candidate "(()()) ((())) () ((())()())")
-    assert ["()" "(())" "((()))" "(((())))"] (candidate "() (()) ((())) (((())))")
-    assert ["(()(())((())))"] (candidate "(()(())((())))")
-    assert ["()" "(())" "(()())"] (candidate "( ) (( )) (( )( ))")
+func check
+    assert ["(()())" "((()))" "()" "((())()())"] (separate_paren_groups "(()()) ((())) () ((())()())")
+    assert ["()" "(())" "((()))" "(((())))"] (separate_paren_groups "() (()) ((())) (((())))")
+    assert ["(()(())((())))"] (separate_paren_groups "(()(())((())))")
+    assert ["()" "(())" "(()())"] (separate_paren_groups "( ) (( )) (( )( ))")
 end
 
 func abs:num x:num

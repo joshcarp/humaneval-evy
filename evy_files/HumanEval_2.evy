@@ -2,9 +2,9 @@ func truncateNumber:num number:num
     return number % 1.0
 end
 func check
-    assert truncateNumber 3.5 == 0.5
-    assert abs (truncateNumber 1.33 - 0.33) < 1e-6
-    assert abs (truncateNumber 123.456 - 0.456) < 1e-6
+    assert 0.5 (truncateNumber 3.5)
+    assert abs ( (truncateNumber 1.33 - 0.33) < 0.000001 )
+    assert abs ( (truncateNumber 123.456 - 0.456) < 0.000001 )
 end
 
 func abs:num x:num
