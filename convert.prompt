@@ -1,0 +1,551 @@
+Evy is a new language. Bellow is an example of some evy code, and following that are some examples of evy programs
+
+# Syntax by Example
+
+The following examples will help you understand the syntax of Evy. For a
+more formal definition of the syntax, see the
+[Language Specification](spec.md). Built-in functions, such as `print`
+and `circle`, are documented in the[Built-ins section](builtins.md).
+
+## Comment
+
+    // This is a comment
+
+## Declaration
+
+    x:num     // declaration: num, string, bool, any, []num, {}string
+    y := 1    // declaration through type inference (num)
+
+## Assignment
+
+    z = 5
+
+## Expression
+
+    x := 5 * (y + z)  - 2 / 7.6           // arithmetic number expression
+    b := !trace and debug or level == ""  // bool expressions
+
+## Strings
+
+    s1 := "quotation mark : \" "          // escaping
+    s2 := "abc" + "🥪123"                 // concatenation
+    s3 := "newline: \n indentation: \t"
+    s4 := s2[0]                           // "a"
+    s5 := s2[1:5]                         // "bc🥪1"
+
+## `if` statements
+
+    if z > 0 and x != 0
+        print "block 1"
+    else if y != 0 or a == "abc"
+        print "block 2"
+    else
+        print "block 3"
+    end
+
+### Nested `if`
+
+    if z > 0 and x != 0
+        if startswith str "a"
+            print "nested block 1"
+        else
+            print "nested block 2"
+        end
+    end
+
+## Loop statements
+
+### `while` loop
+
+    x := 0
+    while x < 10
+        print x
+        x = x + 1
+    end
+
+### `for` … `range` number
+
+    for x := range 5
+        print x           // 0 1 2 3 4
+    end
+
+    for x := range 5 10
+        print x           // 5 6 7 8 9
+    end
+
+    for x := range 1 10 2 // from to step
+        print x           // 1 3 5 7 9
+    end
+
+    for x := range -10
+        print x        // nothing. step is 1 by default.
+    end
+
+### `for` … `range` array
+
+    for x := range [1 2 3]
+        print x        // 1 2 3
+    end
+
+### `for` … `range` map
+
+    m := { name:"Mali" sport:"climbing" }
+    for key := range m
+        print key m[key]
+    end
+
+### `break`
+
+    x := 0
+    while true
+        print "tick... "
+        sleep 1
+        if x > 9
+            print "💥"
+            break  // `break` breaks out of the innermost loop
+        end
+        x = x + 1
+    end
+
+## Function definition
+
+    func add:num a:num b:num
+        return a + b
+    end
+
+### No return type
+
+    func foxprint s:string
+        print "🦊 " + s
+    end
+
+### Variadic
+
+    func list args:any...
+        for arg := range args[:-1]
+            printf "%v, " arg
+        end
+        printf "%v" args[-1]
+    end
+
+### Function calls
+
+    n := add 1 2        // 3
+    foxprint "🐾"       // 🦊 🐾
+    list 2 true "blue"  // 2, true, blue
+
+## Array
+
+    a1:[]num
+    a2:[][]string
+    a1 = [1 2 3 4]              // type: num[]
+    a2 = [["1" "2"] ["a" "b"]]  // type: string[][]
+    a3 := [true false]          // type: bool[]
+    a4 := ["s1"                 // line break allowed
+           "s2"]                // type: string[]
+    a5 := ["chars" 123]         // type: any[]
+    a6:[]any                    // type: any[]
+
+### Array element access
+
+    a1 := [1 2 3 4]
+    a2 := [["1" "2"] ["a" "b"]]
+    print a1[1]                  // 2
+    print a2[1][0]               // "a"
+    print a1[-1]                  // 4
+
+### Concatenation
+
+    a := [1 2 3 4]
+    a = a + [ 100 ]          // [1 2 3 4 100]; optional extra whitespace
+    a = [0] + a + [101 102]  // [0 1 2 3 4 100 101 102]
+
+### Slicing
+
+    a := [1 2 3]
+    b := a[:2]         // [1 2]
+    b = a[1:2]         // [2]
+    b = a[-2:]         // [2 3]
+
+## Map
+
+    m1:{}any // keys used in literals or with `.` must be identifiers.
+    m1.name = "fox"
+    m1.age = 42
+    m1["key with space"] = "🔑🪐"
+
+    m2 := {letters:"abc" name:"Jill"} // type: {}string
+    m3 := {}                          // type: {}any
+    m4 := {
+        letters:"abc"                 // line break allowed
+        nums:123
+    }                                 // type: {}any
+    m5:{}[]num                        // map of array of numbers
+    m5.digits = [1 2 3]
+    m6:{}num
+    //m6.x = "y"                      // invalid, only num values allowed
+
+### Map value access
+
+    m := {letters:"abc" name:"Jill"}
+    s := "letters"
+    print m.letters    // abc
+    print m[s]         // abc
+    print m["letters"] // abc
+
+## `any`
+
+    x:any     // any type, default value: false
+    m1:{}any  // map with any value type
+    m2 := { letter:"a" number:1 }
+    arr1:[]any
+    arr2 := [ "b" 2 ]
+
+## Type assertion
+
+    x:any
+    x = [ 1 2 3 4 ]  // concrete type num[]
+    s := x.([]num)
+
+## Type reflection
+
+    typeof "abc"          // "string"
+    typeof true           // "bool"
+    typeof [ 1 2 ]        // "[]num"
+    typeof [[1 2] [3 4]]  // "[][]num"
+
+    v:any
+    v = "🐐"
+    if (typeof v) == "string"
+        print "v is a string:" v
+        s := v.(string) // type assertion
+        print s+s       // 🐐🐐
+    end
+
+## Event handling
+
+    on key
+        print "key pressed"
+    end
+
+Evy can only handle a limited set of events, such as key presses,
+pointer movements, or periodic screen redraws.
+
+### Event handlers with parameters
+
+    on key k:string
+        printf "%q pressed\n" k
+    end
+
+## Horizontal Whitespace
+
+**Horizontal whitespace** is a sequence of tabs or spaces that is used to
+separate elements in lists. Lists include the argument list to a
+function call, the element list of an array literal, and the value in
+the key-value pairs of a map literal. However, horizontal whitespace
+is not allowed _within_ this list elements.
+
+Horizontal whitespace is not allowed around the dot expression `.` or
+before the opening brace `[` in an index expression or slice
+expression. However, it is allowed _within_ the grouping expression,
+index expression, and slice expression, even if the expression is an
+element of a list such as an argument to a function call.
+
+Assignments, inferred variable declarations, return statements and the
+the expression inside an index expression `[ … ]` _can_ have whitespace
+around their binary operators. The whitespace around the operators is
+optional, but it is often used to improve the readability of the code,
+for example:
+
+```evy
+x := 5 + 3
+x = 7 - 2
+
+arr := [1 2 3]
+arr[3 - 2] = 10
+
+func fn:num
+    return 7 + 1
+end
+
+print x arr (fn)
+```
+
+More formally, horizontal whitespace `WS` between tokens or terminals as
+defined in the grammar is ignored and can be used freely with the
+addition of the following rules:
+
+1. `WS` is not allowed around dot `.` in dot expressions.
+2. `WS` is not allowed before the `[` in index or slice expressions.
+3. `WS` is not allowed following the unary operators `-` and `!`.
+4. `WS` is not allowed within arguments to a function call
+5. `WS` is not allowed within elements of an array literal
+6. `WS` is not allowed within the values of a map literal's key-value pairs.
+7. `WS` is allowed within any grouping expression `(` … `)`.
+8. `WS` is allowed within an index expression `[` … `]`.
+9. `WS` is allowed within a slice expression `[` … `:` … `]`.
+
+Here are some examples of incorrect uses of horizontal whitespace, along
+with their correct uses.
+
+Invalid:
+
+```
+print - 5
+len "a" + "b"
+
+arr := [1 + 1]
+arr [0] = 3 + 2
+print 2 + arr [0]
+
+map := {address: "10 Downing " + "Street"}
+map.  address = "221B Baker Street"
+
+print len map
+```
+
+Valid:
+
+```evy
+print -5
+len "a"+"b"
+
+arr := [1+1]
+arr[0] = 3 + 2
+print 2+arr[0]
+
+map := {address:"10 Downing "+"Street"}
+map.address = "221B Baker Street"
+
+print (len map)
+```
+# Example evy programs
+
+```evy
+// 1. Two Sum
+// Solved
+// Easy
+// Topics
+// Companies
+// Hint
+// Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+// You may assume that each input would have exactly one solution, and you may not use the same element twice.
+// You can return the answer in any order.
+// Example 1:
+// Input: nums = [2,7,11,15], target = 9
+// Output: [0,1]
+// Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+// Example 2:
+// Input: nums = [3,2,4], target = 6
+// Output: [1,2]
+// Example 3:
+// Input: nums = [3,3], target = 6
+// Output: [0,1]
+// Constraints:
+// 2 <= nums.length <= 104
+// -109 <= nums[i] <= 109
+// -109 <= target <= 109
+// Only one valid answer exists.
+// Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
+
+func twosum:[]num nums:[]num target:num
+    m:{}num
+    for i := range (len nums)
+        v := nums[i]
+        if has m (sprintf "%v" (target - v))
+            return [m[sprintf "%v" (target - v)] i]
+        end
+        m[sprintf "%v" v] = i
+    end
+    return []
+end
+
+fails := 0
+total := 0
+
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+// -- Test Cases Start -- //
+assert [0 1] (twosum [2 7 11 15] 9)
+assert [1 2] (twosum [3 2 4] 6)
+assert [0 1] (twosum [3 3] 6)
+// -- Test Cases End -- //
+finished
+```
+
+
+```
+// 199. Binary Tree Right Side View
+// Solved
+// Medium
+// Topics
+// Companies
+// Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+// Example 1:
+// Input: root = [1,2,3,null,5,null,4]
+// Output: [1,3,4]
+// Example 2:
+// Input: root = [1,null,3]
+// Output: [1,3]
+// Example 3:
+// Input: root = []
+// Output: []
+// Constraints:
+// The number of nodes in the tree is in the range [0, 100].
+// -100 <= Node.val <= 100
+
+func rightSideView:[]any treearr:[]any
+    root:any
+    root = buildBinaryTree treearr
+    queue := []
+    res := []
+    queue = queue + [root]
+    while (len queue) > 0
+        size := len queue
+        for i := range 0 size
+            node:{}any
+            node = queue[0].({}any)
+            queue = queue[1:]
+            if (has node "val") and i == size - 1
+                res = res + [node["val"]]
+            end
+            if (has node "left") and node["left"].({}any) != {}
+                queue = queue + [node["left"]]
+            end
+            if (has node "right") and node["right"].({}any) != {}
+                queue = queue + [node["right"]]
+            end
+        end
+    end
+    return res
+end
+
+fails := 0
+total := 0
+
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func buildBinaryTree:{}any tree:[]any
+    root:{}any
+    rootany:any
+    rootany = root
+    queue := [rootany]
+    for i := range 0 (len tree)
+        if (len queue) == 0
+            break
+        end
+        node:{}any
+        node = queue[0].({}any)
+        queue = queue[1:]
+        anynull:any
+        anynull = "null"
+        if tree[i] != anynull
+            node["val"] = tree[i]
+            node["left"] = {}
+            node["right"] = {}
+            queue = queue + [node["left"]]
+            queue = queue + [node["right"]]
+        end
+    end
+    return root
+end
+
+// -- Test Cases Start -- //
+
+assert [1 3 4 ""][:-1] (rightSideView [1 2 3 "null" 5 "null" 4])
+assert [1 3 ""][:-1] (rightSideView [1 "null" 3])
+assert [] (rightSideView [])
+assert [1 3 4 ""][:-1] (rightSideView [1 2 3 4])
+// // -- Test Cases End -- //
+finished
+```
+
+```
+// 412. Fizz Buzz
+// Easy
+// Topics
+// Companies
+// Given an integer n, return a string array answer (1-indexed) where:
+// answer[i] == "FizzBuzz" if i is divisible by 3 and 5.
+// answer[i] == "Fizz" if i is divisible by 3.
+// answer[i] == "Buzz" if i is divisible by 5.
+// answer[i] == i (as a string) if none of the above conditions are true.
+// Example 1:
+// Input: n = 3
+// Output: ["1","2","Fizz"]
+// Example 2:
+// Input: n = 5
+// Output: ["1","2","Fizz","4","Buzz"]
+// Example 3:
+// Input: n = 15
+// Output: ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]
+// Constraints:
+// 1 <= n <= 104
+
+func fizzbuzz:[]string n:num
+    ans:[]string
+    for i := range 1 (n + 1)
+        s:string
+        if i % 3 == 0
+            s = s + "Fizz"
+        end
+        if i % 5 == 0
+            s = s + "Buzz"
+        end
+        if s == ""
+            s = sprintf "%v" i
+        end
+        ans = ans + [s]
+    end
+    return ans
+end
+
+fails := 0
+total := 0
+
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+// -- Test Cases Start -- //
+assert ["1" "2" "Fizz"] (fizzbuzz 3)
+assert ["1" "2" "Fizz" "4" "Buzz"] (fizzbuzz 5)
+assert ["1" "2" "Fizz" "4" "Buzz" "Fizz" "7" "8" "Fizz" "Buzz" "11" "Fizz" "13" "14" "FizzBuzz"] (fizzbuzz 15)
+// -- Test Cases End -- //
+finished
+```
+
+
+Note: when using the `assert` function it expects two different parameters `want` as the first one, and `got` as the second one.   it should be called as `assert want got`.
+
+Respond in json in the following keys: 'function_signature' which will contain the function signature, 'solution' which is the rest of the solution, 'test' which defines a 'check' function that has all of the supplied tests, and 'entry_point' which has the name of the generated function. NOTE: the `test` field should be a single string with the `check` function in it and nothing else.
+
+Here is the python code, including the test function defined in 'check'. DO NOT respond with anything except the specified JSON. Convert this python code to evy:

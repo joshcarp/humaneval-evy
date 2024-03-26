@@ -55,7 +55,7 @@ write_jsonl("samples.jsonl", samples)
 
 To evaluate the samples, run
 ```
-$ evaluate_functional_correctness samples.jsonl
+$ generate_one_completion
 Reading samples...
 32800it [00:01, 23787.50it/s]
 Running test suites...
