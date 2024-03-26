@@ -1,0 +1,52 @@
+func sortThird:[]num l:[]num
+    l = l
+        sorted_thirds:[]num
+        sorted_thirds = sorted(l[::3])
+        for i := range len(sorted_thirds)
+            l[i * 3] = sorted_thirds[i]
+        end
+        return l
+end
+func check candidate:any
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "Assertion failed: want %v got %v\n" want got
+        end
+    end
+
+    assert [1 2 3] (candidate [1 2 3])
+    assert [2 6 3 4 8 9 5] (candidate [5 6 3 4 8 9 2])
+    assert [2 3 -5 2 -3 3 9 0 123 1 -10] (candidate [5 3 -5 2 -3 3 9 0 123 1 -10])
+    assert [2 8 -12 4 23 2 3 11 12 -10] (candidate [5 8 -12 4 23 2 3 11 12 -10])
+    assert [2 8 3 4 6 9 5] (candidate [5 8 3 4 6 9 2])
+    assert [2 6 9 4 8 3 5] (candidate [5 6 9 4 8 3 2])
+    assert [2 6 3 4 8 9 5 1] (candidate [5 6 3 4 8 9 2 1])
+
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

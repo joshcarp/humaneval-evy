@@ -1,0 +1,32 @@
+func countDistinctCharacters:num s:string
+    return len (set s.lower)
+end
+func check
+candidate := countDistinctCharacters
+assert 0 (candidate "")
+assert 5 (candidate "abcde")
+assert 5 (candidate "abcde" + "cade" + "CADE")
+assert 1 (candidate "aaaaAAAAaaaa")
+assert 5 (candidate "Jerry jERRY JeRRRY")
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

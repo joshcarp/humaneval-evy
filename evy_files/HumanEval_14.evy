@@ -1,0 +1,47 @@
+func all_prefixes:[]string string:string
+    result:[]string
+    
+    for i := range (len string)
+        result = result + [string[:i+1]]
+    end
+    return result
+end
+func check candidate:any
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+
+    assert [] (candidate "")
+    assert ["a" "as" "asd" "asdf" "asdfg" "asdfgh"] (candidate "asdfgh")
+    assert ["W" "WW" "WWW"] (candidate "WWW")
+
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

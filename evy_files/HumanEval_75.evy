@@ -1,0 +1,76 @@
+func is_multiply_prime:bool a:num
+    func is_prime:bool n:num
+        for j := range 2 n
+            if n % j == 0
+                return false
+            end
+        end
+        return true
+    end
+    
+    for i := range 2 101
+        if not is_prime i
+            continue
+        end
+        for j := range 2 101
+            if not is_prime j
+                continue
+            end
+            for k := range 2 101
+                if not is_prime k
+                    continue
+                end
+                if i * j * k == a
+                    return true
+                end
+            end
+        end
+    end
+    return false
+end
+func check
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+
+    assert false (is_multiply_prime 5)
+    assert true (is_multiply_prime 30)
+    assert true (is_multiply_prime 8)
+    assert false (is_multiply_prime 10)
+    assert true (is_multiply_prime 125)
+    assert true (is_multiply_prime (3 * 5 * 7))
+    assert false (is_multiply_prime (3 * 6 * 7))
+    assert false (is_multiply_prime (9 * 9 * 9))
+    assert false (is_multiply_prime (11 * 9 * 9))
+    assert true (is_multiply_prime (11 * 13 * 7))
+
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

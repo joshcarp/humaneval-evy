@@ -1,0 +1,36 @@
+func decode_shift:string s:string
+    return ''.join([(chr(((ord(ch) - 5 - ord('a')) % 26) + ord('a'))) for ch in s])
+end
+func check candidate:any
+    from := import 'random' 'randint' 'choice'
+    import copy
+    import string
+
+    letters := string.ascii_lowercase
+    for _ := range 100
+        str := ''.join([choice(letters) for i := range (randint 10 20)])
+        encoded_str := encode_shift str
+        assert candidate(copy.deepcopy(encoded_str)) == str
+    end
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

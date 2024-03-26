@@ -1,0 +1,58 @@
+func check_dict_case:bool dict:{}any
+    if len dict == 0
+        return false
+    end
+    state := "start"
+    for key := range dict
+        if typeof key != "string"
+            state = "mixed"
+            break
+        end
+        if state == "start"
+            if key == (key.toUpper key)
+                state = "upper"
+            else if key == (key.toLower key)
+                state = "lower"
+            else
+                break
+            end
+        else if (state == "upper" and key != (key.toUpper key)) or (state == "lower" and key != (key.toLower key))
+            state = "mixed"
+            break
+        end
+    end
+    return state == "upper" or state == "lower"
+end
+func check
+candidate := check_dict_case
+// Check some simple cases
+assert true (candidate {"p":"pineapple" "b":"banana"})
+assert false (candidate {"p":"pineapple" "A":"banana" "B":"banana"})
+assert false (candidate {"p":"pineapple" 5:"banana" "a":"apple"})
+assert false (candidate {"Name":"John" "Age":"36" "City":"Houston"})
+assert true (candidate {"STATE":"NC" "ZIP":"12345" })
+assert true (candidate {"fruit":"Orange" "taste":"Sweet" })
+// Check some edge cases that are easy to work out by hand.
+assert false (candidate {})
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

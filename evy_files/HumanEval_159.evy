@@ -1,0 +1,43 @@
+func eat:[]num number:num need:num remaining:num
+    
+        if need <= remaining
+            return [number + need, remaining - need]
+        else
+            return [number + remaining, 0]
+        end
+    
+end
+func check candidate:any
+
+    // Check some simple cases
+    assert [11, 4] (candidate 5 6 10)
+    assert [12, 1] (candidate 4 8 9)
+    assert [11, 0] (candidate 1 10 10)
+    assert [7, 0] (candidate 2 11 5)
+
+    // Check some edge cases that are easy to work out by hand.
+    assert [9, 2] (candidate 4 5 7)
+    assert [5, 0] (candidate 4 5 1)
+
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

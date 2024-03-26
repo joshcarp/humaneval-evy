@@ -1,0 +1,52 @@
+func closestInteger:num value:string
+    from math import floor, ceil
+    
+    if value.count('.') == 1:
+        // remove trailing zeros
+        while (value[-1] == '0'):
+            value = value[:-1]
+    
+    num = float(value)
+    if value[-2:] == '.5':
+        if num > 0:
+            res = ceil(num)
+        else:
+            res = floor(num)
+    elif len(value) > 0:
+        res = int(round(num))
+    else:
+        res = 0
+    
+    return res
+end
+func check
+    // Check some simple cases
+    assert 10 (closestInteger "10")
+    assert 15 (closestInteger "14.5")
+    assert -16 (closestInteger "-15.5")
+    assert 15 (closestInteger "15.3")
+
+    // Check some edge cases that are easy to work out by hand.
+    assert 0 (closestInteger "0")
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

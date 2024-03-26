@@ -1,0 +1,44 @@
+func car_race_collision:num n:num
+    return n * n
+end
+func check
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+
+    assert 4 (car_race_collision 2)
+    assert 9 (car_race_collision 3)
+    assert 16 (car_race_collision 4)
+    assert 64 (car_race_collision 8)
+    assert 100 (car_race_collision 10)
+
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

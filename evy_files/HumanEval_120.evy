@@ -1,0 +1,54 @@
+func maximum:[]num arr:[]num k:num
+    arr = sort arr
+    ans:[]num
+    ans = arr[-k:]
+    return ans
+    end
+end
+func check
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+
+    assert [-4 -3 5] (maximum [-3 -4 5] 3)
+    assert [4 4] (maximum [4 -4 4] 2)
+    assert [2] (maximum [-3 2 1 2 -1 -2 1] 1)
+    assert [2 20 123] (maximum [123 -123 20 0 1 2 -3] 3)
+    assert [0 1 2 20] (maximum [-123 20 0 1 2 -3] 4)
+    assert [-13 -8 0 0 3 5 15] (maximum [5 15 0 3 -13 -8 0] 7)
+    assert [3 5] (maximum [-1 0 2 5 3 -10] 2)
+    assert [5] (maximum [1 0 5 -7] 1)
+    assert [-4 4] (maximum [4 -4] 2)
+    assert [-10 10] (maximum [-10 10] 2)
+    assert [] (maximum [1 2 3 -23 243 -400 0] 0)
+
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

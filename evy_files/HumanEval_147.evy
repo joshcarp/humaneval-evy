@@ -1,0 +1,57 @@
+func getMaxTriples:num n:num
+    A:[]num
+        for i := range 1 (n + 1)
+            A = A + [i * i - i + 1]
+        end
+        ans:[]any
+        for i := range n
+            for j := range (i + 1) n
+                for k := range (j + 1) n
+                    if (A[i] + A[j] + A[k]) % 3 == 0
+                        ans = ans + [(A[i] A[j] A[k])]
+                    end
+                end
+            end
+        end
+        return len ans
+end
+func check:num candidate:any
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+
+    assert 1 (candidate 5)
+    assert 4 (candidate 6)
+    assert 36 (candidate 10)
+    assert 53361 (candidate 100)
+
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

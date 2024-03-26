@@ -1,0 +1,49 @@
+func largest_prime_factor:num n:num
+    func is_prime:bool k:num
+        if k < 2
+            return false
+        end
+        for i := range 2 (k - 1)
+            if k % i == 0
+                return false
+            end
+        end
+        return true
+    end
+    
+    largest := 1
+    for j := range 2 (n + 1)
+        if n % j == 0 and is_prime j
+            largest = max largest j
+        end
+    end
+    return largest
+end
+func check
+    assert 5 (largest_prime_factor 15)
+    assert 3 (largest_prime_factor 27)
+    assert 7 (largest_prime_factor 63)
+    assert 11 (largest_prime_factor 330)
+    assert 29 (largest_prime_factor 13195)
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

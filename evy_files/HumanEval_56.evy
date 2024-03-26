@@ -1,0 +1,49 @@
+func correct_bracketing:bool brackets:string
+    depth := 0
+    for b := range brackets
+        if brackets[b] == "<"
+            depth = depth + 1
+        else
+            depth = depth - 1
+        end
+        if depth < 0
+            return false
+        end
+    end
+    return depth == 0
+end
+func check
+    assert true (correct_bracketing "<>")
+    assert true (correct_bracketing "<<><>>")
+    assert true (correct_bracketing "<><><<><>><>")
+    assert true (correct_bracketing "<><><<<><><>><>><<><><<>>>")
+    assert false (correct_bracketing "<<<><>>>>")
+    assert false (correct_bracketing "><<>")
+    assert false (correct_bracketing "<")
+    assert false (correct_bracketing "<<<<")
+    assert false (correct_bracketing ">")
+    assert false (correct_bracketing "<<>")
+    assert false (correct_bracketing "<><><<><>><>><<>")
+    assert false (correct_bracketing "<><><<><>><>>><>")
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

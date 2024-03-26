@@ -1,0 +1,46 @@
+func wordsString:[]string s:string
+    sList:[]string
+    
+    for letter := range s
+        if letter == ','
+            sList = sList + [' ']
+        else
+            sList = sList + [letter]
+        end
+    end
+    
+    sList = join sList ""
+    sList = split sList " "
+    
+    return sList
+end
+func check candidate:any
+
+    assert [] (candidate "")
+    assert ["Hi" "my" "name" "is" "John"] (candidate "Hi, my name is John")
+    assert ["One" "two" "three" "four" "five" "six"] (candidate "One, two, three, four, five, six")
+    assert ["Hi" "my" "name"] (candidate "Hi, my name")
+    assert ["One" "two" "three" "four" "five" "six"] (candidate "One,, two, three, four, five, six,")
+    assert ["ahmed" "gamal"] (candidate "ahmed     , gamal")
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

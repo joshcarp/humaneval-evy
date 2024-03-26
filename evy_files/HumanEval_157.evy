@@ -1,0 +1,47 @@
+func right_angle_triangle:bool a:num b:num c:num
+    return a*a == b*b + c*c or b*b == a*a + c*c or c*c == a*a + b*b
+end
+func check candidate:any
+    fails := 0
+    total := 0
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "This prints if this assert fails %v (good for debugging!)\n" (total - fails)
+        end
+    end
+    assert true (candidate 3 4 5)
+    assert false (candidate 1 2 3)
+    assert true (candidate 10 6 8)
+    assert false (candidate 2 2 2)
+    assert true (candidate 7 24 25)
+    assert false (candidate 10 5 7)
+    assert true (candidate 5 12 13)
+    assert true (candidate 15 8 17)
+    assert true (candidate 48 55 73)
+    assert false (candidate 1 1 1)
+    assert false (candidate 2 2 10)
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

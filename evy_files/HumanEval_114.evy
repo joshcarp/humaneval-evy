@@ -1,0 +1,51 @@
+func minSubArraySum:num nums:[]num
+    max_sum := 0
+    s := 0
+    for num := range nums
+        s = s + -num
+        if s < 0
+            s = 0
+        end
+        max_sum = max s max_sum
+    end
+    if max_sum == 0
+        max_sum = max [-i for i := range nums]
+    end
+    min_sum := -max_sum
+    return min_sum
+end
+func check
+    assert 1 (minSubArraySum [2 3 4 1 2 4])
+    assert -6 (minSubArraySum [-1 -2 -3])
+    assert -14 (minSubArraySum [-1 -2 -3 2 -10])
+    assert -9999999999999999 (minSubArraySum [-9999999999999999])
+    assert 0 (minSubArraySum [0 10 20 1000000])
+    assert -6 (minSubArraySum [-1 -2 -3 10 -5])
+    assert -6 (minSubArraySum [100 -1 -2 -3 10 -5])
+    assert 3 (minSubArraySum [10 11 13 8 3 4])
+    assert -33 (minSubArraySum [100 -33 32 -1 0 -2])
+    assert -10 (minSubArraySum [-10])
+    assert 7 (minSubArraySum [7])
+    assert -1 (minSubArraySum [1 -1])
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

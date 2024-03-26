@@ -1,0 +1,53 @@
+func hex_key:num num:string
+    primes := ["2" "3" "5" "7" "B" "D"]
+        total := 0
+        for i := range (len num)
+            if num[i] in primes
+                total = total + 1
+            end
+        end
+        return total
+end
+func check
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "error: want %v got %v\n" want got
+        end
+    end
+
+    assert 1 (hex_key "AB")
+    assert 2 (hex_key "1077E")
+    assert 4 (hex_key "ABED1A33")
+    assert 2 (hex_key "2020")
+    assert 6 (hex_key "123456789ABCDEF0")
+    assert 12 (hex_key "112233445566778899AABBCCDDEEFF00")
+    assert 0 (hex_key "")
+
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

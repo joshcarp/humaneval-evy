@@ -1,0 +1,55 @@
+func intersection:interval1:[]num interval2:[]num
+    l := max interval1[0] interval2[0]
+    r := min interval1[1] interval2[1]
+    length := r - l
+    if length > 0 and is_prime length
+        return "YES"
+    end
+    return "NO"
+    
+    func is_prime:num num
+        if num == 1 or num == 0
+            return false
+        end
+        if num == 2
+            return true
+        end
+        for i := range 2 num
+            if num % i == 0
+                return false
+            end
+        end
+        return true
+    end
+end
+func check candidate:any
+    assert "NO" (candidate [1 2] [2 3])
+    assert "NO" (candidate [-1 1] [0 4])
+    assert "YES" (candidate [-3 -1] [-5 5])
+    assert "YES" (candidate [-2 2] [-4 0])
+    assert "NO" (candidate [-11 2] [-1 -1])
+    assert "NO" (candidate [1 2] [3 5])
+    assert "NO" (candidate [1 2] [1 2])
+    assert "NO" (candidate [-2 -2] [-3 -2])
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

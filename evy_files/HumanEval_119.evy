@@ -1,0 +1,72 @@
+func match_parens: string lst: []string
+    func check: bool s: string
+        val := 0
+        for i := range (len s)
+            if s[i] == "("
+                val = val + 1
+            else
+                val = val - 1
+            end
+            if val < 0
+                return false
+            end
+        end
+        return val == 0
+    end
+    
+    S1 := lst[0] + lst[1]
+    S2 := lst[1] + lst[0]
+    if check S1 or check S2
+        return "Yes"
+    else
+        return "No"
+    end
+end
+func check
+    fails := 0
+    total := 0
+
+    func assert want: any got: any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+
+    assert "Yes" (match_parens ["()(" ")"])
+    assert "No" (match_parens [")" ")"])
+    assert "No" (match_parens ["(()(()" ")())())"])
+    assert "Yes" (match_parens [")())" "(()()("])
+    assert "Yes" (match_parens ["(())))" "(()())(("])
+    assert "No" (match_parens ["()" ")())"])
+    assert "Yes" (match_parens ["(()(" "))))()"])
+    assert "No" (match_parens ["((((" "((())"])
+    assert "No" (match_parens [")(()" "(()("])
+    assert "No" (match_parens [")(" ")("])
+    assert "Yes" (match_parens ["(" ")"])
+    assert "Yes" (match_parens [")" "("])
+
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

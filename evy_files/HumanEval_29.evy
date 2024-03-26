@@ -1,0 +1,47 @@
+func filterByPrefix:[]string strings:[]string prefix:string
+    filtered:[]string
+    for s := range strings
+        if startswith s prefix
+            filtered = filtered + [s]
+        end
+    end
+    return filtered
+end
+func check candidate:any
+    fails := 0
+    total := 0
+    
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+    
+    assert [] (candidate [] "john")
+    assert ["xxx" "xxxAAA" "xxx"] (candidate ["xxx" "asd" "xxy" "john doe" "xxxAAA" "xxx"] "xxx")
+    
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

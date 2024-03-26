@@ -1,0 +1,45 @@
+func do_algebra: num operator:[]string operand:[]num
+    expression:string
+    expression = sprintf "%v" operand[0]
+    for i := range (len operator)
+        expression = expression + operator[i] + sprintf "%v" operand[i+1]
+    end
+    return eval expression
+end
+func check
+    fails := 0
+    total := 0
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "This prints if this assert fails %v (good for debugging!)\n" (total - 1)
+        end
+    end
+    assert 37 (do_algebra ["**" "*" "+"] [2 3 4 5])
+    assert 9 (do_algebra ["+" "*" "-"] [2 3 4 5])
+    assert 8 (do_algebra ["//" "*"] [7 3 4])
+    assert true
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

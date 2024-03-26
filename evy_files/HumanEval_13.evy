@@ -1,0 +1,43 @@
+func greatest_common_divisor:num a:num b:num
+    while b
+        a, b = b, a % b
+    end
+    return a
+end
+func check candidate:any
+    fails := 0
+    total := 0
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+    assert 1 (candidate 3 7)
+    assert 5 (candidate 10 15)
+    assert 7 (candidate 49 14)
+    assert 12 (candidate 144 60)
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

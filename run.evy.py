@@ -6,6 +6,9 @@ import os
 if not os.path.exists("evy_files"):
     os.makedirs("evy_files")
 
+functions = open("functions.evy", "r")
+functions = functions.read()
+
 # Open the evy2.humaneval.jsonl file
 with open("evy2.humaneval.jsonl", "r") as f:
     for line in f:
@@ -17,12 +20,15 @@ with open("evy2.humaneval.jsonl", "r") as f:
         prompt = data["prompt"]
         canonical_solution = data["canonical_solution"]
         test = data["test"]
+        entry_point = data["entry_point"]
         
         # Stitch together the Evy code
-        evy_code = f"{prompt}\n{canonical_solution}\n{test}"
+        evy_code = f"{prompt}\n    {canonical_solution.replace("\n", "\n    ")}\nend\n{test}\n\n{functions}\ncheck\nfinished\n"
+
+        # evy_code
         
         # Write Evy code to file
-        filename = f"evy_files/{task_id}.evy"
+        filename = f"evy_files/{task_id.replace('/', '_')}.evy"
         with open(filename, "w") as evy_file:
             evy_file.write(evy_code)
         

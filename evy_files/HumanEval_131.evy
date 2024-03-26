@@ -1,0 +1,56 @@
+func digits:num n:num
+    product := 1
+    odd_count := 0
+    for digit := range (sprintf "%v" n)
+        int_digit := atoi digit
+        if int_digit % 2 == 1
+            product = product * int_digit
+            odd_count = odd_count + 1
+        end
+    end
+    if odd_count == 0
+        return 0
+    else
+        return product
+    end
+end
+func check
+    fails := 0
+total := 0
+func assert want:any got:any
+total = total + 1
+if want != got
+fails = fails + 1
+printf "want != got: want %v got %v\n" want got
+end
+end
+assert 5 (digits 5)
+assert 5 (digits 54)
+assert 1 (digits 120)
+assert 5 (digits 5014)
+assert 315 (digits 98765)
+assert 2625 (digits 5576543)
+assert 0 (digits 2468)
+printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

@@ -1,0 +1,53 @@
+func remove_duplicates:[]num numbers:[]num
+    c:{}num
+    for n := range numbers
+        if has c (sprintf "%v" n)
+            c[sprintf "%v" n] = c[sprintf "%v" n] + 1
+        else
+            c[sprintf "%v" n] = 1
+        end
+    end
+    result:[]num
+    for n := range numbers
+        if c[sprintf "%v" n] <= 1
+            result = result + [n]
+        end
+    end
+    return result
+end
+func check
+    fails := 0
+    total := 0
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+    assert [] (remove_duplicates [])
+    assert [1 2 3 4] (remove_duplicates [1 2 3 4])
+    assert [1 4 5] (remove_duplicates [1 2 3 2 4 3 5])
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

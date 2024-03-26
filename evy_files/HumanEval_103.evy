@@ -1,0 +1,47 @@
+func rounded_avg n:num m:num
+    if m < n
+        return -1
+    end
+    summation:num
+    summation = 0
+    for i := range n (m+1)
+        summation = summation + i
+    end
+    return sprintf "0b%b" (round (summation / (m - n + 1)))
+    end
+end
+func check candidate:any
+    assert "0b11" (candidate 1 5)
+    assert "0b1010" (candidate 7 13)
+    assert "0b1111001010" (candidate 964 977)
+    assert "0b1111100100" (candidate 996 997)
+    assert "0b1011000010" (candidate 560 851)
+    assert "0b101101110" (candidate 185 546)
+    assert "0b110101101" (candidate 362 496)
+    assert "0b1001110010" (candidate 350 902)
+    assert "0b11010111" (candidate 197 233)
+    assert -1 (candidate 7 5)
+    assert -1 (candidate 5 1)
+    assert "0b101" (candidate 5 5)
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

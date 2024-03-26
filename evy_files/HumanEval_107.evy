@@ -1,0 +1,62 @@
+func even_odd_palindrome:[]num n:num
+    even := 0
+        odd := 0
+        for i := range 1 (n + 1)
+            if (sprintf "%v" i) == (reverse (sprintf "%v" i))
+                if i % 2 == 0
+                    even = even + 1
+                else
+                    odd = odd + 1
+                end
+            end
+        end
+        return [even odd]
+end
+func check candidate:any
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+
+    func finished
+        printf "%v of %v tests passed\n" (total - fails) total
+    end
+
+    assert [8 13] (candidate 123)
+    assert [4 6] (candidate 12)
+    assert [1 2] (candidate 3)
+    assert [6 8] (candidate 63)
+    assert [5 6] (candidate 25)
+    assert [4 6] (candidate 19)
+    assert [4 5] (candidate 9)
+    assert [0 1] (candidate 1)
+
+    finished
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

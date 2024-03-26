@@ -1,0 +1,45 @@
+func sortArray:[]num arr:[]num
+    arr = arr | sort | sortby (lambda x:num -> num bin x | count "1")
+    return arr
+end
+func check
+    fails := 0
+    total := 0
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "Assertion failed: want %v got %v\n" want got
+        end
+    end
+    assert [1 2 4 3 5] (sortArray [1 5 2 3 4])
+    assert [-4 -2 -6 -5 -3] (sortArray [-2 -3 -4 -5 -6])
+    assert [0 1 2 4 3] (sortArray [1 0 2 3 4])
+    assert [] (sortArray [])
+    assert [2 2 4 4 3 3 5 5 5 7 77] (sortArray [2 5 77 4 5 3 5 7 2 3 4])
+    assert [32 3 5 6 12 44] (sortArray [3 6 44 12 32 5])
+    assert [2 4 8 16 32] (sortArray [2 4 8 16 32])
+    assert [2 4 8 16 32] (sortArray [2 4 8 16 32])
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

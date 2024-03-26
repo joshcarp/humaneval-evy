@@ -1,0 +1,45 @@
+func filterIntegers:[]num values:[]any
+    return [x for x := range values if (typeof x) == "num" and x == floor x]
+end
+func check candidate:any
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+
+    func finished
+        printf "%v of %v tests passed\n" (total - fails) total
+    end
+
+    assert [] (candidate [])
+    assert [4 9] (candidate [4 {} [] 23.2 9 "adasd"])
+    assert [3 3 3] (candidate [3 "c" 3 3 "a" "b"])
+    finished
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

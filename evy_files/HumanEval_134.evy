@@ -1,0 +1,40 @@
+func checkIfLastCharIsALetter:bool txt:string
+    check := txt.split ' '[-1]
+    return (len check) == 1 and (97 <= ord (check.lower)) <= 122
+end
+func check candidate:any
+    // Check some simple cases
+    assert false (candidate "apple")
+    assert true (candidate "apple pi e")
+    assert false (candidate "eeeee")
+    assert true (candidate "A")
+    assert false (candidate "Pumpkin pie ")
+    assert false (candidate "Pumpkin pie 1")
+    assert false (candidate "")
+    assert false (candidate "eeeee e ")
+    assert false (candidate "apple pie")
+    assert false (candidate "apple pi e ")
+    // Check some edge cases that are easy to work out by hand.
+    assert true
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

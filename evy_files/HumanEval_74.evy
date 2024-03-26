@@ -1,0 +1,51 @@
+func total_match:[]string lst1:[]string lst2:[]string
+    l1 := 0
+        for st := range lst1
+            l1 = l1 + (len st)
+        end
+        
+        l2 := 0
+        for st := range lst2
+            l2 = l2 + (len st)
+        end
+        
+        if l1 <= l2
+            return lst1
+        else
+            return lst2
+        end
+end
+func check candidate:any
+    // Check some simple cases
+    assert [] (candidate [] [])
+    assert ["hi" "hi"] (candidate ["hi" "admin"] ["hi" "hi"])
+    assert ["hi" "admin"] (candidate ["hi" "admin"] ["hi" "hi" "admin" "project"])
+    assert ["4"] (candidate ["4"] ["1" "2" "3" "4" "5"])
+    assert ["hI" "Hi"] (candidate ["hi" "admin"] ["hI" "Hi"])
+    assert ["hI" "hi" "hi"] (candidate ["hi" "admin"] ["hI" "hi" "hi"])
+    assert ["hi" "admin"] (candidate ["hi" "admin"] ["hI" "hi" "hii"])
+    // Check some edge cases that are easy to work out by hand.
+    assert [] (candidate [] ["this"])
+    assert [] (candidate ["this"] [])
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

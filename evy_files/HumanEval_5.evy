@@ -1,0 +1,54 @@
+func intersperse:[]num numbers:[]num delimeter:num
+    if (len numbers) == 0
+        return []
+    end
+    
+    result:[]num
+    
+    for n := range numbers[:-1]
+        result = result + [numbers[n]] + [delimeter]
+    end
+    
+    result = result + [numbers[-1]]
+    
+    return result
+end
+func check
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+
+    assert [] (intersperse [] 7)
+    assert [5 8 6 8 3 8 2] (intersperse [5 6 3 2] 8)
+    assert [2 2 2 2 2] (intersperse [2 2 2] 2)
+
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

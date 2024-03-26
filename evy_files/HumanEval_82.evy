@@ -1,0 +1,53 @@
+func prime_length:bool s:string
+    l := len s
+        if l == 0 or l == 1
+            return false
+        end
+        for i := range 2 l
+            if l % i == 0
+                return false
+            end
+        end
+        return true
+end
+func check candidate:any
+    // Check some simple cases
+    assert true (candidate "Hello")
+    assert true (candidate "abcdcba")
+    assert true (candidate "kittens")
+    assert false (candidate "orange")
+    assert true (candidate "wow")
+    assert true (candidate "world")
+    assert true (candidate "MadaM")
+    assert true (candidate "Wow")
+    assert false (candidate "")
+    assert true (candidate "HI")
+    assert true (candidate "go")
+    assert false (candidate "gogo")
+    assert false (candidate "aaaaaaaaaaaaaaa")
+    // Check some edge cases that are easy to work out by hand.
+    assert true (candidate "Madam")
+    assert false (candidate "M")
+    assert false (candidate "0")
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

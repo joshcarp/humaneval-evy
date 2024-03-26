@@ -1,0 +1,50 @@
+func add:num x:num y:num
+    return x + y
+end
+func check
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+
+    assert 1 (add 0 1)
+    assert 1 (add 1 0)
+    assert 5 (add 2 3)
+    assert 12 (add 5 7)
+    assert 12 (add 7 5)
+
+    for i := range 100
+        x := rand 0 1000
+        y := rand 0 1000
+        assert (x + y) (add x y)
+    end
+
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

@@ -1,0 +1,45 @@
+func x_or_y:any n:num x:any y:any
+    if n == 1
+        return y
+    end
+    for i := range 2 n
+        if n % i == 0
+            return y
+            break
+        end
+    end
+    return x
+end
+func check
+    assert 34 (x_or_y 7 34 12)
+    assert 5 (x_or_y 15 8 5)
+    assert 33 (x_or_y 3 33 5212)
+    assert 3 (x_or_y 1259 3 52)
+    assert -1 (x_or_y 7919 -1 12)
+    assert 583 (x_or_y 3609 1245 583)
+    assert 129 (x_or_y 91 56 129)
+    assert 1234 (x_or_y 6 34 1234)
+    assert 0 (x_or_y 1 2 0)
+    assert 2 (x_or_y 2 2 0)
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

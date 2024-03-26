@@ -1,0 +1,64 @@
+func intToMiniRoman:string number:num
+    num:[]num = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000]
+    sym:[]string = ["I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M"]
+    i := 12
+    res:string = ""
+    while number > 0
+        div := number // num[i]
+        number = number % num[i]
+        while div > 0
+            res = res + sym[i]
+            div = div - 1
+        end
+        i = i - 1
+    end
+    return res.lower()
+end
+func check
+    fails := 0
+total := 0
+func assert want:any got:any
+total = total + 1
+if want != got
+fails = fails + 1
+printf "want != got: want %v got %v\n" want got
+end
+end
+assert "xix" (intToMiniRoman 19)
+assert "clii" (intToMiniRoman 152)
+assert "ccli" (intToMiniRoman 251)
+assert "cdxxvi" (intToMiniRoman 426)
+assert "d" (intToMiniRoman 500)
+assert "i" (intToMiniRoman 1)
+assert "iv" (intToMiniRoman 4)
+assert "xliii" (intToMiniRoman 43)
+assert "xc" (intToMiniRoman 90)
+assert "xciv" (intToMiniRoman 94)
+assert "dxxxii" (intToMiniRoman 532)
+assert "cm" (intToMiniRoman 900)
+assert "cmxciv" (intToMiniRoman 994)
+assert "m" (intToMiniRoman 1000)
+printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

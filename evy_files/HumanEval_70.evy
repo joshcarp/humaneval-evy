@@ -1,0 +1,60 @@
+func strangeSortList:[]num lst:[]num
+    res:[]num
+    switch:bool
+    switch = true
+    while (len lst) > 0
+        if switch
+            minVal := min lst
+            res = res + [minVal]
+            lst = lst - [minVal]
+        else
+            maxVal := max lst
+            res = res + [maxVal]
+            lst = lst - [maxVal]
+        end
+        switch = !switch
+    end
+    return res
+end
+func check
+    fails := 0
+    total := 0
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+    assert [1 4 2 3] (strangeSortList [1 2 3 4])
+    assert [5 9 6 8 7] (strangeSortList [5 6 7 8 9])
+    assert [1 5 2 4 3] (strangeSortList [1 2 3 4 5])
+    assert [1 9 5 8 6 7] (strangeSortList [5 6 7 8 9 1])
+    assert [5 5 5 5] (strangeSortList [5 5 5 5])
+    assert [] (strangeSortList [])
+    assert [1 8 2 7 3 6 4 5] (strangeSortList [1 2 3 4 5 6 7 8])
+    assert [-5 5 -5 5 0 2 2 2] (strangeSortList [0 2 2 2 5 5 -5 -5])
+    assert [111111] (strangeSortList [111111])
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

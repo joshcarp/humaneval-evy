@@ -1,0 +1,41 @@
+func odd_count:[]string lst:[]string
+    res:[]string
+        for arr := range lst
+            n:num
+            n = 0
+            for d := range arr
+                if (num(arr[d]) % 2) == 1
+                    n = n + 1
+                end
+            end
+            res = res + ["the number of odd elements " + (sprintf "%v" n) + "n the str"+ (sprintf "%v" n) +"ng "+ (sprintf "%v" n) +" of the "+ (sprintf "%v" n) +"nput."]
+        end
+        return res
+end
+func check candidate:any
+    assert ["the number of odd elements 4n the str4ng 4 of the 4nput."] (candidate ["1234567"])
+    assert ["the number of odd elements 1n the str1ng 1 of the 1nput.", "the number of odd elements 8n the str8ng 8 of the 8nput."] (candidate ["3","11111111"])
+    assert ['the number of odd elements 2n the str2ng 2 of the 2nput.', 'the number of odd elements 3n the str3ng 3 of the 3nput.', 'the number of odd elements 2n the str2ng 2 of the 2nput.'] (candidate ['271', '137', '314'])
+end
+check odd_count
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

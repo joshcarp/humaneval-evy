@@ -1,0 +1,64 @@
+func count_nums: num arr: []num
+    func digits_sum:num n:num
+        neg := 1
+        if n < 0
+            n = -1 * n
+            neg = -1
+        end
+        n_str := sprintf "%v" n
+        n_arr := []
+        for i := range (len n_str)
+            n_arr = n_arr + [strtonum n_str[i]]
+        end
+        n_arr[0] = n_arr[0] * neg
+        sum := 0
+        for i := range n_arr
+            sum = sum + n_arr[i]
+        end
+        return sum
+    end
+    
+    res := []
+    for i := range arr
+        res = res + [digits_sum arr[i]]
+    end
+    
+    positive_count := 0
+    for i := range res
+        if res[i] > 0
+            positive_count = positive_count + 1
+        end
+    end
+    return positive_count
+end
+func check
+    assert 0 (count_nums [])
+    assert 0 (count_nums [-1 -2 0])
+    assert 6 (count_nums [1 1 2 -2 3 4 5])
+    assert 5 (count_nums [1 6 9 -6 0 1 5])
+    assert 4 (count_nums [1 100 98 -7 1 -1])
+    assert 5 (count_nums [12 23 34 -45 -56 0])
+    assert 1 (count_nums [-0 1])
+    assert 1 (count_nums [1])
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

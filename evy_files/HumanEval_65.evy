@@ -1,0 +1,36 @@
+func circular_shift:string x:num shift:num
+    s:string
+    s = sprintf "%v" x
+    if shift > (len s)
+        return s[-1:0:-1]
+    end
+    return s[(len s) - shift:] + s[:(len s) - shift]
+end
+func check
+    assert "001" (circular_shift 100 2)
+    assert "12" (circular_shift 12 2)
+    assert "79" (circular_shift 97 8)
+    assert "21" (circular_shift 12 1)
+    assert "11" (circular_shift 11 101)
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

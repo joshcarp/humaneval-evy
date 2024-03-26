@@ -1,0 +1,29 @@
+func triangle_area:num a:num h:num
+    return a * h / 2.0
+end
+func check
+    assert 7.5 (triangle_area 5 3)
+    assert 2.0 (triangle_area 2 2)
+    assert 40.0 (triangle_area 10 8)
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

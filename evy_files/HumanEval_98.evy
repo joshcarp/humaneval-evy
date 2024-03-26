@@ -1,0 +1,49 @@
+func count_upper:num s:string
+    count := 0
+    for i := range 0 (len s) 2
+        if "AEIOU".contains s[i]
+            count = count + 1
+        end
+    end
+    return count
+end
+func check candidate:any
+    fails := 0
+total := 0
+func assert want:any got:any
+total = total + 1
+if want != got
+fails = fails + 1
+printf "want != got: want %v got %v\n" want got
+end
+end
+assert 1 (candidate "aBCdEf")
+assert 0 (candidate "abcdefg")
+assert 0 (candidate "dBBE")
+assert 0 (candidate "B")
+assert 1 (candidate "U")
+assert 0 (candidate "")
+assert 2 (candidate "EEEE")
+printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

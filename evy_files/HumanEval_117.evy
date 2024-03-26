@@ -1,0 +1,58 @@
+func select_words:[]string s:string n:num
+    result:[]string
+        for word := range (split s " ")
+            n_consonants := 0
+            for i := range (len word)
+                if !(contains "aeiou" (word[i].(string).lower))
+                    n_consonants = n_consonants + 1
+                end
+            end
+            if n_consonants == n
+                result = result + [word]
+            end
+        end
+        return result
+end
+func check candidate:any
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "error: want %v got %v\n" want got
+        end
+    end
+
+    assert ["little"] (candidate "Mary had a little lamb" 4)
+    assert ["Mary" "lamb"] (candidate "Mary had a little lamb" 3)
+    assert [] (candidate "simple white space" 2)
+    assert ["world"] (candidate "Hello world" 4)
+    assert ["Uncle"] (candidate "Uncle sam" 3)
+    assert [] (candidate "" 4)
+    assert ["b" "c" "d" "f"] (candidate "a b c d e f" 1)
+
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

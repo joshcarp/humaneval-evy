@@ -1,0 +1,47 @@
+func monotonic:bool l:[]num
+    if l == (sort l) or l == (sort l true)
+        return true
+    end
+    return false
+end
+func check
+    fails := 0
+    total := 0
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+    assert true (monotonic [1 2 4 10])
+    assert true (monotonic [1 2 4 20])
+    assert false (monotonic [1 20 4 10])
+    assert true (monotonic [4 1 0 -10])
+    assert true (monotonic [4 1 1 0])
+    assert false (monotonic [1 2 3 2 5 60])
+    assert true (monotonic [1 2 3 4 5 60])
+    assert true (monotonic [9 9 9 9])
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

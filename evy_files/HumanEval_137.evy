@@ -1,0 +1,57 @@
+func compareOne:any a:any b:any
+    tempA:any
+    tempB:any
+    tempA = a
+    tempB = b
+    if (typeof tempA) == "string"
+        tempA = replace tempA "," "."
+    end
+    if (typeof tempB) == "string"
+        tempB = replace tempB "," "."
+    end
+    if tofloat tempA == tofloat tempB
+        return false
+    end
+    return a if tofloat tempA > tofloat tempB else b
+end
+func check
+    fails := 0
+    total := 0
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+    assert 2 (compareOne 1 2)
+    assert 2.5 (compareOne 1 2.5)
+    assert 3 (compareOne 2 3)
+    assert 6 (compareOne 5 6)
+    assert "2,3" (compareOne 1 "2,3")
+    assert "6" (compareOne "5,1" "6")
+    assert "2" (compareOne "1" "2")
+    assert false (compareOne "1" 1)
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

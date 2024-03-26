@@ -1,0 +1,59 @@
+func f:[]num n:num
+    ret:[]num
+        for i := range 1 (n + 1)
+            if i % 2 == 0
+                x := 1
+                for j := range 1 (i + 1)
+                    x = x * j
+                end
+                ret = ret + [x]
+            else
+                x := 0
+                for j := range 1 (i + 1)
+                    x = x + j
+                end
+                ret = ret + [x]
+            end
+        end
+        return ret
+end
+func check candidate:any
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+
+    assert [1 2 6 24 15] (candidate 5)
+    assert [1 2 6 24 15 720 28] (candidate 7)
+    assert [1] (candidate 1)
+    assert [1 2 6] (candidate 3)
+
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

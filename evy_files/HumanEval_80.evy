@@ -1,0 +1,43 @@
+func is_happy:bool s:string
+    if (len s) < 3
+        return false
+    end
+    for i := range 0 ((len s) - 2)
+        if s[i] == s[i+1] or s[i+1] == s[i+2] or s[i] == s[i+2]
+            return false
+        end
+    end
+    return true
+    end
+end
+func check candidate:any
+    assert false (candidate "a")
+    assert false (candidate "aa")
+    assert true (candidate "abcd")
+    assert false (candidate "aabb")
+    assert true (candidate "adb")
+    assert false (candidate "xyy")
+    assert true (candidate "iopaxpoi")
+    assert false (candidate "iopaxioi")
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

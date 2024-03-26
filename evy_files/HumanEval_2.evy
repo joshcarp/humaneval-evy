@@ -1,0 +1,29 @@
+func truncateNumber:num number:num
+    return number % 1.0
+end
+func check
+    assert truncateNumber 3.5 == 0.5
+    assert abs (truncateNumber 1.33 - 0.33) < 1e-6
+    assert abs (truncateNumber 123.456 - 0.456) < 1e-6
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

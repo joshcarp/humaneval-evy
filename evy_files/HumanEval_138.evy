@@ -1,0 +1,47 @@
+func is_equal_to_sum_even:bool n:num
+    return n % 2 == 0 and n >= 8
+end
+func check candidate:any
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+
+    assert false (candidate 4)
+    assert false (candidate 6)
+    assert true (candidate 8)
+    assert true (candidate 10)
+    assert false (candidate 11)
+    assert true (candidate 12)
+    assert false (candidate 13)
+    assert true (candidate 16)
+
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

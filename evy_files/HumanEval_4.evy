@@ -1,0 +1,30 @@
+func mean_absolute_deviation:float numbers:[]float
+    mean := sum numbers / len numbers
+        return sum (map (lambda x:float abs x - mean) numbers) / len numbers
+end
+func check candidate:any
+    assert abs (candidate [1.0 2.0 3.0] - 2.0 / 3.0) < 1e-6
+    assert abs (candidate [1.0 2.0 3.0 4.0] - 1.0) < 1e-6
+    assert abs (candidate [1.0 2.0 3.0 4.0 5.0] - 6.0 / 5.0) < 1e-6
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

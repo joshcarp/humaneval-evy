@@ -1,0 +1,51 @@
+func max_element:num l:[]num
+    m := l[0]
+        for e := range l
+            if l[e] > m
+                m = l[e]
+            end
+        end
+        return m
+end
+func check candidate:any
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "Assertion failed: want %v got %v\n" want got
+        end
+    end
+
+    assert 3 (candidate [1 2 3])
+    assert 124 (candidate [5 3 -5 2 -3 3 9 0 124 1 -10])
+
+    if fails == 0
+        print "All tests passed."
+    else
+        printf "%v of %v tests failed." fails total
+    end
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

@@ -1,0 +1,52 @@
+func compare:[]num game:[]num guess:[]num
+    res:[]num
+        for i := range (len game)
+            res = res + [abs(game[i] - guess[i])]
+        end
+        return res
+    end
+end
+func check candidate:any
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "This prints if this assert fails %v (good for debugging!)\n" (total - fails)
+        end
+    end
+
+    assert [0 0 0 0 3 3] (candidate [1 2 3 4 5 1] [1 2 3 4 2 -2])
+    assert [0 0 0 0 0 0] (candidate [0 0 0 0 0 0] [0 0 0 0 0 0])
+    assert [2 4 6] (candidate [1 2 3] [-1 -2 -3])
+    assert [2 0 0 1] (candidate [1 2 3 5] [-1 2 3 4])
+
+    if fails == 0
+        print "All tests passed!"
+    else
+        printf "%v of %v tests passed\n" (total - fails) total
+    end
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

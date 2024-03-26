@@ -1,0 +1,38 @@
+func is_palindrome:bool text:string
+    for i := range (len text)
+        if text[i] != text[(len text) - 1 - i]
+            return false
+        end
+    end
+    return true
+end
+func check candidate:any
+    assert true (candidate "")
+    assert true (candidate "aba")
+    assert true (candidate "aaaaa")
+    assert false (candidate "zbcd")
+    assert true (candidate "xywyx")
+    assert false (candidate "xywyz")
+    assert false (candidate "xywzx")
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

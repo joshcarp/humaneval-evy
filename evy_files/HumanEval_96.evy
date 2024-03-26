@@ -1,0 +1,62 @@
+func count_up_to:[]num n:num
+    primes:[]num
+        for i := range 2 n
+            is_prime := true
+            for j := range 2 i
+                if i % j == 0
+                    is_prime = false
+                    break
+                end
+            end
+            if is_prime
+                primes = primes + [i]
+            end
+        end
+        return primes
+end
+func check candidate:any
+    fails := 0
+    total := 0
+
+    func assert want:any got:any
+        total = total + 1
+        if want != got
+            fails = fails + 1
+            printf "want != got: want %v got %v\n" want got
+        end
+    end
+
+    assert [2 3] (candidate 5)
+    assert [2 3 5] (candidate 6)
+    assert [2 3 5] (candidate 7)
+    assert [2 3 5 7] (candidate 10)
+    assert [] (candidate 0)
+    assert [2 3 5 7 11 13 17 19] (candidate 22)
+    assert [] (candidate 1)
+    assert [2 3 5 7 11 13 17] (candidate 18)
+    assert [2 3 5 7 11 13 17 19 23 29 31 37 41 43] (candidate 47)
+    assert [2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97] (candidate 101)
+
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished
