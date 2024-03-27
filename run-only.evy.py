@@ -46,42 +46,6 @@ with open("evy2.humaneval.jsonl", "r") as f:
             evy_code = f"{prompt}\n    {canonical_solution.replace("\n", "\n    ")}\nend\n{test}\n\n{functions}\ncheck\nfinished\n"
         with open(f"original_evy/{filename}", "w") as original_evy_file:
             original_evy_file.write(evy_code)
-        evy_codelines = evy_code.split("\n")
-
-        # for i, line in enumerate(evy_codelines):
-        #     if "func check candidate:any" in line:
-        #         evy_codelines[i] = "func check"
-        #     elif "candidate" in line:
-        #         evy_codelines[i] = evy_codelines[i].replace("candidate", entry_point)
-        #     elif "abs " in line and "func" not in line:
-        #         evy_codelines[i] = evy_codelines[i].replace("abs", "abs (")
-        #         evy_codelines[i] += (")")
-        #     elif re.search(r"range \w+", line):
-        #             evy_codelines[i] = re.sub(r"range (\w+)", r"range (len \1)", evy_codelines[i])
-        #     elif "assert" in line and "==" in line:
-        #         evy_codelines[i] = evy_codelines[i].replace("==", "")
-        #     evy_codelines[i] = evy_codelines[i].replace("'", '"')
-            
-
-
-        # evy_code = "\n".join(evy_codelines)
-
-        # replacements = [
-        #     (r"assert truncateNumber (\d+\.\d+)  (\d+\.\d+)", r"assert \2 (truncateNumber \1)"),
-        #     (r"assert abs \( \(truncateNumber (\d+\.\d+) - (\d+\.\d+)\) < 1e-6\)", r"assert true (((abs (truncateNumber (\1 - \2)))<0.000001))"),
-        #     (r"assert abs \( \(truncateNumber (\d+\.\d+) - (\d+\.\d+)\) < 1e-6\)", r"assert true (((abs (truncateNumber (\1 - \2)))<0.000001))"),
-        #     (r"1e-6", r"0.000001"),
-        #     ("assert abs (mean_absolute_deviation [1.0 2.0 3.0] - 2.0 / 3.0) < 0.000001", "assert true (abs (mean_absolute_deviation [1.0 2.0 3.0] - 2.0 / 3.0) < 0.000001)"),
-        #     ("assert abs (mean_absolute_deviation [1.0 2.0 3.0 4.0] - 1.0) < 0.000001", "assert true (abs (mean_absolute_deviation [1.0 2.0 3.0 4.0] - 1.0) < 0.000001)"), 
-        #     ("assert abs (mean_absolute_deviation [1.0 2.0 3.0 4.0 5.0] - 6.0 / 5.0) < 0.000001", "assert true (abs (mean_absolute_deviation [1.0 2.0 3.0 4.0 5.0] - 6.0 / 5.0) < 0.000001)"),
-        # ]
-        # evy_code
-        
-        # for pattern, replacement in replacements:
-        #     evy_code = re.sub(pattern, replacement, evy_code)
-        
-        # Write Evy code to file
-        
         with open( f"evy_files/{filename}", "w") as evy_file:
             evy_file.write(evy_code)
         

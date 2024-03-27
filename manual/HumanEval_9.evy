@@ -1,0 +1,40 @@
+func rolling_max:[]num numbers:[]num
+    if numbers == []
+        return []
+    end
+    running_max := numbers[0]
+    result:[]num
+    for number := range numbers
+        if number > running_max
+            running_max = number
+        end
+        result = result + [running_max]
+    end
+    return result
+end
+func check
+    assert [] (rolling_max [])
+    assert [1 2 3 4] (rolling_max [1 2 3 4])
+    assert [4 4 4 4] (rolling_max [4 3 2 1])
+    assert [3 3 3 100 100] (rolling_max [3 2 3 100 3])
+end
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if (sprintf "%v" want) != (sprintf "%v" got)
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished

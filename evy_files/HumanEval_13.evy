@@ -1,3 +1,17 @@
+func greatest_common_divisor:num a:num b:num
+    while b != 0
+        tmp := a
+        a = b
+        b = tmp % b
+    end
+    return a
+end
+func check
+    assert 1 (greatest_common_divisor 3 7)
+    assert 5 (greatest_common_divisor 10 15)
+    assert 7 (greatest_common_divisor 49 14)
+    assert 12 (greatest_common_divisor 144 60)
+end
 func abs:num x:num
     if x < 0
         return -x
@@ -16,3 +30,5 @@ end
 func finished
     printf "%v of %v tests passed\n" (total - fails) total
 end
+check
+finished

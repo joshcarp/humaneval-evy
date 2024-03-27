@@ -1,3 +1,15 @@
+func all_prefixes:[]string str:string
+    result:[]string
+    for i := range (len str)
+        result = result + [str[:i+1]]
+    end
+    return result
+end
+func check
+    assert [] (all_prefixes "")
+    assert ["a" "as" "asd" "asdf" "asdfg" "asdfgh"] (all_prefixes "asdfgh")
+    assert ["W" "WW" "WWW"] (all_prefixes "WWW")
+end
 func abs:num x:num
     if x < 0
         return -x
@@ -16,3 +28,5 @@ end
 func finished
     printf "%v of %v tests passed\n" (total - fails) total
 end
+check
+finished

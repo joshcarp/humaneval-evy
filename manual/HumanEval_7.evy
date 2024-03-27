@@ -1,0 +1,43 @@
+func filter_by_substring:[]string strings:[]string substring:string
+    ans: []string
+    for str := range strings
+        if (contains str substring)
+            ans = ans + [str]
+        end
+    end
+    return ans
+end
+func check
+    assert [] (filter_by_substring [] "john")
+    assert ["xxx" "xxxAAA" "xxx"] (filter_by_substring ["xxx" "asd" "xxy" "john doe" "xxxAAA" "xxx"] "xxx")
+    assert ["xxx" "aaaxxy" "xxxAAA" "xxx"] (filter_by_substring ["xxx" "asd" "aaaxxy" "john doe" "xxxAAA" "xxx"] "xx")
+    assert ["grunt" "prune"] (filter_by_substring ["grunt" "trumpet" "prune" "gruesome"] "run")
+end
+func contains:bool haystack:string needle:string
+    for i := range ((len haystack) - (len needle) + 1)
+        if haystack[i:i + (len needle)] == needle
+            return true
+        end
+    end
+    return false
+end
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+fails := 0
+total := 0
+func assert want:any got:any
+    total = total + 1
+    if (sprintf "%v" want) != (sprintf "%v" got)
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+func finished
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+check
+finished
