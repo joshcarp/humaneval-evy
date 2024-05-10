@@ -1,0 +1,37 @@
+// Return a greatest common divisor of two integers a and b
+// greatest_common_divisor(3, 5) // 1
+// greatest_common_divisor(25, 15) // 5
+func greatest_common_divisor:num a:num b:num
+    while b != 0
+        tmp := a
+        a = b
+        b = tmp % b
+    end
+    return a
+end
+
+func check
+    assert 1 (greatest_common_divisor 3 7)
+    assert 5 (greatest_common_divisor 10 15)
+    assert 7 (greatest_common_divisor 49 14)
+    assert 12 (greatest_common_divisor 144 60)
+end
+
+// Test boilerplate
+fails := 0
+total := 0
+
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+
+func print_result
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+check
+print_result

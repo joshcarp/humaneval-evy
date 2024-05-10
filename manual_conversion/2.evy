@@ -1,0 +1,35 @@
+func truncate_number:num number:num
+    return number % 1
+end
+
+func check
+    assert 0.5 (truncate_number 3.5)
+    assert true (((abs (truncate_number (1.33 - 0.33))) < 0.000001))
+    assert true (((abs (truncate_number (123.456 - 0.456))) < 0.000001))
+end
+
+func abs:num x:num
+    if x < 0
+        return -x
+    end
+    return x
+end
+
+// Test boilerplate
+fails := 0
+total := 0
+
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+
+func print_result
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+check
+print_result

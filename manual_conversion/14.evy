@@ -1,0 +1,37 @@
+// Return list of all prefixes from shortest to longest of the input string
+// all_prefixes('abc')
+// ['a', 'ab', 'abc']
+func all_prefixes:[]string str:string
+    result:[]string
+    for i := range (len str)
+        result = result + [str[:i + 1]]
+    end
+    return result
+end
+
+empty_string_array:[]string
+
+func check
+    assert empty_string_array (all_prefixes "")
+    assert ["a" "as" "asd" "asdf" "asdfg" "asdfgh"] (all_prefixes "asdfgh")
+    assert ["W" "WW" "WWW"] (all_prefixes "WWW")
+end
+
+// Test boilerplate
+fails := 0
+total := 0
+
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+
+func print_result
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+check
+print_result

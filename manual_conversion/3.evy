@@ -1,0 +1,43 @@
+// You're given a list of deposit and withdrawal operations on a bank account that starts with
+// zero balance. Your task is to detect if at any point the balance of account falls below zero, and
+// at that point function should return true. Otherwise it should return False.
+// below_zero [1 2 3] // false
+// below_zero([1 2 -4 5] // true
+func below_zero:bool operations:[]num
+    balance := 0
+    for op := range (len operations)
+        balance = balance + operations[op]
+        if balance < 0
+            return true
+        end
+    end
+    return false
+end
+
+func check
+    assert false (below_zero [])
+    assert false (below_zero [1 2 -3 1 2 -3])
+    assert true (below_zero [1 2 -4 5 6])
+    assert false (below_zero [1 -1 2 -2 5 -5 4 -4])
+    assert true (below_zero [1 -1 2 -2 5 -5 4 -5])
+    assert true (below_zero [1 -2 2 -2 5 -5 4 -4])
+end
+
+// Test boilerplate
+fails := 0
+total := 0
+
+func assert want:any got:any
+    total = total + 1
+    if want != got
+        fails = fails + 1
+        printf "want != got: want %v got %v\n" want got
+    end
+end
+
+func print_result
+    printf "%v of %v tests passed\n" (total - fails) total
+end
+
+check
+print_result
