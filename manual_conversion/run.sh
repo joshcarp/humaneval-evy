@@ -1,8 +1,10 @@
 #!/bin/bash
 
+set -eo pipefail
+
 FILES=(*.evy)
 
 for file in "${FILES[@]}"; do
-  echo "$file"
+  printf "%7s " "${file}"
   evy run "$file"
 done
