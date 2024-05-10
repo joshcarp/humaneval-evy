@@ -435,15 +435,16 @@ def translate_function_call(node):
         return f"(join {args} {receiver})"
     return f"{receiver}.{function_name} ({args})"
 
-
-
 def translate_python_code(python_code):
     """Translates a Python code snippet into Evy"""
     global scope
     scope = set()
     tree = ast.parse(python_code)
     if isinstance(tree, ast.Module):
-        return translate_ast_node(tree)
+        try:
+            return translate_ast_node(tree)
+        except Exception as err:
+            return ""
     else:
         raise NotImplementedError(f"Input must be Python code as a string")
 
@@ -469,80 +470,18 @@ def run_from_string(command, code_string, filename="tmp_script.py"):
         except subprocess.CalledProcessError as e:
             return None, e.stderr
 
-
 if __name__ == "__main__":
-    # Example Usage
-    python_snippets = ["""
-a = False
-if "a" == "b":
-    a = "a" == "b"
-""",
-"""print("Hello, World!")""",
-"""celsius = 37
-fahrenheit = (celsius * 9/5) + 32
-print(fahrenheit)
-""",
-"""string = "radar"
-print(string == string[::-1])
-""",
-"""num1 = 5
-num2 = 10
-print(num1 + num2)
-""",
-"""string = "Hello"
-print(len(string))
-""",
-"""num = 4
-print(num % 2 == 0)
-""",
-"""string = "Hello"
-print(string[::-1])
-""",
-
-                       """def custom_slice(obj, start, stop, step=1):
-    obj_len = len(obj)
-
-    # Adjust indices to handle negative values
-    start = start + obj_len if start < 0 else start
-    stop = stop + obj_len if stop < 0 else stop
-
-    # Ensure indices are within bounds
-    start = max(0, min(start, obj_len))
-    stop = max(0, min(stop, obj_len))
-
-    # Handle negative step
-    if step < 0:
-        start, stop = stop - 1, start -1 
-
-    # Calculate indices and build result with appropriate direction
-    result = [] 
-    if step > 0: 
-        for i in range(start, stop, step):
-            result.append(obj[i])
-    else:
-        for i in range(start, stop, step):
-            result.append(obj[i])        
-        result.reverse()
-
-    return result 
-                       """
-
-
-
-                       ]
     translated = []
     for filename in os.listdir("python"):
         filepath = os.path.join("python", filename)
-        if os.path.isfile(filepath):  # Ensure it's a regular file
+        if os.path.isfile(filepath):
             with open(filepath, 'r') as f:
                 snippet = f.read()
-                if "separate_paren_groups" not in snippet:
-                    continue
                 evy_code = translate_python_code(snippet)
-                val, err = run_from_string("evy run", evy_code)
-                print("Evy code:\n")
-                print(evy_code)
-                if val is None: print("Evy error:", err)
-                print("Evy output:\n", val)
+                filepath = filepath.replace("python", "src")
+                filepath = filepath.replace(".py", "_convert.evy")
+                with open(filepath, 'w') as out:
+                    out.write(evy_code)
+
 
 

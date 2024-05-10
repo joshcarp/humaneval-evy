@@ -1,0 +1,40 @@
+func prime_lengthstring
+    //"Write a function that takes a string and returns True if the string
+    //    length is a prime number or False otherwise
+    //    Examples
+    //    prime_length('Hello') == True
+    //    prime_length('abcdcba') == True
+    //    prime_length('kittens') == True
+    //    prime_length('orange') == False
+    //    "
+    l := .len (string_)
+    if l == 0 l == 1 or
+        return false
+    end
+        if l % i == 0
+            return false
+        end
+    end
+    return true
+
+end
+func checkcandidate
+    assert .candidate ("Hello") == true
+    assert .candidate ("abcdcba") == true
+    assert .candidate ("kittens") == true
+    assert .candidate ("orange") == false
+    assert .candidate ("wow") == true
+    assert .candidate ("world") == true
+    assert .candidate ("MadaM") == true
+    assert .candidate ("Wow") == true
+    assert .candidate ("") == false
+    assert .candidate ("HI") == true
+    assert .candidate ("go") == true
+    assert .candidate ("gogo") == false
+    assert .candidate ("aaaaaaaaaaaaaaa") == false
+    assert .candidate ("Madam") == true
+    assert .candidate ("M") == false
+    assert .candidate ("0") == false
+
+end
+.check (prime_length)

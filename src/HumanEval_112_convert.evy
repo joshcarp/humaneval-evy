@@ -1,0 +1,31 @@
+func reverse_deletes c
+    //"Task
+    //    We are given two strings s and c, you have to deleted all the characters in s that are equal to any character in c
+    //    then check if the result string is palindrome.
+    //    A string is called palindrome if it reads the same backward as forward.
+    //    You should return a tuple containing the result string and True/False for the check.
+    //    Example
+    //    For s = "abcde", c = "ae", the result should be ('bcd',False)
+    //    For s = "abcdef", c = "b"  the result should be ('acdef',False)
+    //    For s = "abcdedcba", c = "ab", the result should be ('cdedc',True)
+    //    "
+    s := (join __evy_listcomp_ := []
+    for char := s:
+    if !(has c char)
+     "")
+    return [s s[0:] == s ]
+
+end
+func checkcandidate
+    assert .candidate ("abcde" "ae") == ["bcd" false ]
+    assert .candidate ("abcdef" "b") == ["acdef" false ]
+    assert .candidate ("abcdedcba" "ab") == ["cdedc" true ]
+    assert .candidate ("dwik" "w") == ["dik" false ]
+    assert .candidate ("a" "a") == ["" true ]
+    assert .candidate ("abcdedcba" "") == ["abcdedcba" true ]
+    assert .candidate ("abcdedcba" "v") == ["abcdedcba" true ]
+    assert .candidate ("vabba" "v") == ["abba" true ]
+    assert .candidate ("mamma" "mia") == ["" true ]
+
+end
+.check (reverse_delete)

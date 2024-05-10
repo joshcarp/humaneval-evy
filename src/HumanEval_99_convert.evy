@@ -1,0 +1,54 @@
+func closest_integervalue
+    //"
+    //    Create a function that takes a value (string) representing a number
+    //    and returns the closest integer to it. If the number is equidistant
+    //    from two integers, round it away from zero.
+    //
+    //    Examples
+    //    >>> closest_integer("10")
+    //    10
+    //    >>> closest_integer("15.3")
+    //    15
+    //
+    //    Note:
+    //    Rounding away from zero means that if the given number is equidistant
+    //    from two integers, the one you should return is the one that is the
+    //    farthest from zero. For example closest_integer("14.5") should
+    //    return 15 and closest_integer("-14.5") should return -15.
+    //    "
+    
+    if value.count (".") == 1
+        while value-1 == "0"
+            value := value[0:-1]
+        end
+    end
+    num_ := .float (value)
+    if value[-2:] == ".5"
+        if num_ > 0
+            res := .ceil (num_)
+            .floor (num_)
+        else
+            res = .floor (num_)
+        end
+    else if .len (value) > 0
+        res = .int (.round (num_))
+    else
+        if .len (value) > 0
+            res = .int (.round (num_))
+            0
+        else
+            res = 0
+        end
+    end
+    return res
+
+end
+func checkcandidate
+    assert .candidate ("10") == 10
+    assert .candidate ("14.5") == 15
+    assert .candidate ("-15.5") == -16
+    assert .candidate ("15.3") == 15
+    assert .candidate ("0") == 0
+
+end
+.check (closest_integer)

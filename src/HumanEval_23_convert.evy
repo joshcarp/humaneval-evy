@@ -1,0 +1,18 @@
+func strlen:int string:string
+    //" Return length of given string
+    //    >>> strlen('')
+    //    0
+    //    >>> strlen('abc')
+    //    3
+    //    "
+    return .len (string_)
+
+end
+METADATA := {"author":"jt" "dataset":"test"}
+func checkcandidate
+    assert .candidate ("") == 0
+    assert .candidate ("x") == 1
+    assert .candidate ("asdasnakj") == 9
+
+end
+.check (strlen)

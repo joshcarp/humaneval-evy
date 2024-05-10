@@ -1,0 +1,42 @@
+func factorize:[]int n:int
+    //" Return list of prime factors of given integer in the order from smallest to largest.
+    //    Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.
+    //    Input number should be equal to the product of all factors
+    //    >>> factorize(8)
+    //    [2, 2, 2]
+    //    >>> factorize(25)
+    //    [5, 5]
+    //    >>> factorize(70)
+    //    [2, 5, 7]
+    //    "
+    
+    fact := []
+    i := 2
+    while i <= .int (math.sqrt (n) + 1)
+        if n % i == 0
+            fact = fact + [i]
+            n = n None i
+            1
+        else
+            i = i + 1
+        end
+    end
+    if n > 1
+        fact = fact + [n]
+    end
+    return fact
+
+end
+METADATA := {"author":"jt" "dataset":"test"}
+func checkcandidate
+    assert .candidate (2) == [2 ]
+    assert .candidate (4) == [2 2 ]
+    assert .candidate (8) == [2 2 2 ]
+    assert .candidate (3 * 19) == [3 19 ]
+    assert .candidate (3 * 19 * 3 * 19) == [3 3 19 19 ]
+    assert .candidate (3 * 19 * 3 * 19 * 3 * 19) == [3 3 3 19 19 19 ]
+    assert .candidate (3 * 19 * 19 * 19) == [3 19 19 19 ]
+    assert .candidate (3 * 2 * 3) == [2 3 3 ]
+
+end
+.check (factorize)
