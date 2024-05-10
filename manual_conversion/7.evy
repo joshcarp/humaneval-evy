@@ -20,8 +20,8 @@ func contains:bool haystack:string needle:string
     return false
 end
 
-func check
-    assert 0 (len (filter_by_substring [] "john"))
+func test
+    assert [] (filter_by_substring [] "john")
     assert ["xxx" "xxxAAA" "xxx"] (filter_by_substring ["xxx" "asd" "xxy" "john doe" "xxxAAA" "xxx"] "xxx")
     assert ["xxx" "aaaxxy" "xxxAAA" "xxx"] (filter_by_substring ["xxx" "asd" "aaaxxy" "john doe" "xxxAAA" "xxx"] "xx")
     assert ["grunt" "prune"] (filter_by_substring ["grunt" "trumpet" "prune" "gruesome"] "run")
@@ -33,15 +33,21 @@ total := 0
 
 func assert want:any got:any
     total = total + 1
-    if want != got
-        fails = fails + 1
-        printf "want != got: want %v got %v\n" want got
+    if want == got
+        return
     end
+    wantType := (typeof want)[:2]
+    gotType := (typeof got)[:2]
+    if (wantType == "[]" or wantType == "{}") and wantType == gotType and (len want) == 0 and (len got) == 0
+        return
+    end
+    fails = fails + 1
+    printf "want != got:\n want: %v\n got:  %v\n" want got
 end
 
 func print_result
     printf "%v of %v tests passed\n" (total - fails) total
 end
 
-check
+test
 print_result

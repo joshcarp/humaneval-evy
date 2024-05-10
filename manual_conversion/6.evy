@@ -26,7 +26,7 @@ func parse_nested_parens:[]num paren_string:string
     return result
 end
 
-func check
+func test
     assert [2 3 1 3] (parse_nested_parens "(()()) ((())) () ((())()())")
     assert [1 2 3 4] (parse_nested_parens "() (()) ((())) (((())))")
     assert [4] (parse_nested_parens "(()(())((())))")
@@ -38,15 +38,21 @@ total := 0
 
 func assert want:any got:any
     total = total + 1
-    if want != got
-        fails = fails + 1
-        printf "want != got: want %v got %v\n" want got
+    if want == got
+        return
     end
+    wantType := (typeof want)[:2]
+    gotType := (typeof got)[:2]
+    if (wantType == "[]" or wantType == "{}") and wantType == gotType and (len want) == 0 and (len got) == 0
+        return
+    end
+    fails = fails + 1
+    printf "want != got:\n want: %v\n got:  %v\n" want got
 end
 
 func print_result
     printf "%v of %v tests passed\n" (total - fails) total
 end
 
-check
+test
 print_result

@@ -28,7 +28,7 @@ func abs:num x:num
     return x
 end
 
-func check
+func test
     assert true ((abs ((mean_absolute_deviation [1 2 3]) - 2 / 3)) < 0.000001)
     assert true ((abs ((mean_absolute_deviation [1 2 3 4]) - 1)) < 0.000001)
     assert true ((abs ((mean_absolute_deviation [1 2 3 4 5]) - 6 / 5)) < 0.000001)
@@ -40,15 +40,21 @@ total := 0
 
 func assert want:any got:any
     total = total + 1
-    if want != got
-        fails = fails + 1
-        printf "want != got: want %v got %v\n" want got
+    if want == got
+        return
     end
+    wantType := (typeof want)[:2]
+    gotType := (typeof got)[:2]
+    if (wantType == "[]" or wantType == "{}") and wantType == gotType and (len want) == 0 and (len got) == 0
+        return
+    end
+    fails = fails + 1
+    printf "want != got:\n want: %v\n got:  %v\n" want got
 end
 
 func print_result
     printf "%v of %v tests passed\n" (total - fails) total
 end
 
-check
+test
 print_result

@@ -10,7 +10,7 @@ func greatest_common_divisor:num a:num b:num
     return a
 end
 
-func check
+func test
     assert 1 (greatest_common_divisor 3 7)
     assert 5 (greatest_common_divisor 10 15)
     assert 7 (greatest_common_divisor 49 14)
@@ -23,15 +23,21 @@ total := 0
 
 func assert want:any got:any
     total = total + 1
-    if want != got
-        fails = fails + 1
-        printf "want != got: want %v got %v\n" want got
+    if want == got
+        return
     end
+    wantType := (typeof want)[:2]
+    gotType := (typeof got)[:2]
+    if (wantType == "[]" or wantType == "{}") and wantType == gotType and (len want) == 0 and (len got) == 0
+        return
+    end
+    fails = fails + 1
+    printf "want != got:\n want: %v\n got:  %v\n" want got
 end
 
 func print_result
     printf "%v of %v tests passed\n" (total - fails) total
 end
 
-check
+test
 print_result

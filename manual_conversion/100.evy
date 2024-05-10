@@ -6,9 +6,7 @@
 //  Return the number of stones in each level in a list, where element at index
 //  i represents the number of stones in the level (i+1).
 //
-//  Examples:
-//  >>> make_a_pile(3)
-//  [3, 5, 7]
+//  make_a_pile 3 //  [3, 5, 7]
 func make_a_pilen:[]num n:num
     arr:[]num
     for i := range n
@@ -17,7 +15,7 @@ func make_a_pilen:[]num n:num
     return arr
 end
 
-func check
+func test
     assert [3 5 7] (make_a_pilen 3)
     assert [4 6 8 10] (make_a_pilen 4)
     assert [5 7 9 11 13] (make_a_pilen 5)
@@ -31,15 +29,21 @@ total := 0
 
 func assert want:any got:any
     total = total + 1
-    if want != got
-        fails = fails + 1
-        printf "want != got: want %v got %v\n" want got
+    if want == got
+        return
     end
+    wantType := (typeof want)[:2]
+    gotType := (typeof got)[:2]
+    if (wantType == "[]" or wantType == "{}") and wantType == gotType and (len want) == 0 and (len got) == 0
+        return
+    end
+    fails = fails + 1
+    printf "want != got:\n want: %v\n got:  %v\n" want got
 end
 
 func print_result
     printf "%v of %v tests passed\n" (total - fails) total
 end
 
-check
+test
 print_result

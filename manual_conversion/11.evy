@@ -14,7 +14,7 @@ func string_xor:string a:string b:string
     return res
 end
 
-func check
+func test
     assert "010010" (string_xor "111000" "101010")
     assert "0" (string_xor "1" "1")
     assert "0101" (string_xor "0101" "0000")
@@ -26,15 +26,21 @@ total := 0
 
 func assert want:any got:any
     total = total + 1
-    if want != got
-        fails = fails + 1
-        printf "want != got: want %v got %v\n" want got
+    if want == got
+        return
     end
+    wantType := (typeof want)[:2]
+    gotType := (typeof got)[:2]
+    if (wantType == "[]" or wantType == "{}") and wantType == gotType and (len want) == 0 and (len got) == 0
+        return
+    end
+    fails = fails + 1
+    printf "want != got:\n want: %v\n got:  %v\n" want got
 end
 
 func print_result
     printf "%v of %v tests passed\n" (total - fails) total
 end
 
-check
+test
 print_result
