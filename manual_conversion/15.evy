@@ -1,20 +1,18 @@
-// Return a greatest common divisor of two integers a and b
-// gcd(3, 5) // 1
-// gcd(25, 15) // 5
-func gcd:num a:num b:num
-    while b != 0
-        tmp := a
-        a = b
-        b = tmp % b
+// Return a string containing space-delimited numbers starting from 0 up to n inclusive.
+// stringSequence 0 // "0"
+// stringSequence 5 // "0 1 2 3 4 5"
+func stringSequence:string n:num
+    str := "0"
+    for x := range n
+        str = sprintf "%s %v" str x+1
     end
-    return a
+    return str
 end
 
 func test
-    assert 1 (gcd 3 7)
-    assert 5 (gcd 10 15)
-    assert 7 (gcd 49 14)
-    assert 12 (gcd 144 60)
+    assert "0" (stringSequence 0)
+    assert "0 1 2 3" (stringSequence 3)
+    assert "0 1 2 3 4 5 6 7 8 9 10" (stringSequence 10)
 end
 
 // Test boilerplate

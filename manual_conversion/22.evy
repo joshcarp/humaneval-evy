@@ -1,20 +1,23 @@
-// Return a greatest common divisor of two integers a and b
-// gcd(3, 5) // 1
-// gcd(25, 15) // 5
-func gcd:num a:num b:num
-    while b != 0
-        tmp := a
-        a = b
-        b = tmp % b
+// Filter given list of any values for num
+// filterInts ["a", 3.14, 5] // [5]
+// filterInts [1, 2, 3, "abc", {}, []] // [1, 2, 3]
+func filterInts:[]num values:[]any
+    result:[]num
+    for a := range values
+        if (typeof a) == "num"
+            n := a.(num)
+            if n == (round n)
+                result = result + [n]
+            end
+        end
     end
-    return a
+    return result
 end
 
 func test
-    assert 1 (gcd 3 7)
-    assert 5 (gcd 10 15)
-    assert 7 (gcd 49 14)
-    assert 12 (gcd 144 60)
+    assert [] (filterInts [])
+    assert [4 9] (filterInts [4 {} [] 23.2 9 "adasd"])
+    assert [3 3 3] (filterInts [3 "c" 3 3 "a" "b"])
 end
 
 // Test boilerplate
@@ -41,3 +44,4 @@ end
 
 test
 print_result
+

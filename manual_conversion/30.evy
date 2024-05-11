@@ -1,20 +1,21 @@
-// Return a greatest common divisor of two integers a and b
-// gcd(3, 5) // 1
-// gcd(25, 15) // 5
-func gcd:num a:num b:num
-    while b != 0
-        tmp := a
-        a = b
-        b = tmp % b
+// Return only positive numbers in the list.
+// getPositive [-1 2 -4 5 6] // [2, 5, 6]
+// getPositive [5 3 -5 2 -3 3 9 0 123 1 -10] // [5 3 2 3 9 123 1]
+func getPositive:[]num nums:[]num
+    result:[]num
+    for n := range nums
+        if n > 0
+            result = result + [n]
+        end
     end
-    return a
+    return result
 end
 
 func test
-    assert 1 (gcd 3 7)
-    assert 5 (gcd 10 15)
-    assert 7 (gcd 49 14)
-    assert 12 (gcd 144 60)
+    assert [4 5 6] (getPositive [-1 -2 4 5 6])
+    assert [5 3 2 3 3 9 123 1] (getPositive [5 3 -5 2 3 3 9 0 123 1 -10])
+    assert [] (getPositive [-1 -2])
+    assert [] (getPositive [])
 end
 
 // Test boilerplate
@@ -41,3 +42,4 @@ end
 
 test
 print_result
+

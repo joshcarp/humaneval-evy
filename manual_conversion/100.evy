@@ -6,8 +6,8 @@
 //  Return the number of stones in each level in a list, where element at index
 //  i represents the number of stones in the level (i+1).
 //
-//  make_a_pile 3 //  [3, 5, 7]
-func make_a_pilen:[]num n:num
+//  makePile 3 //  [3, 5, 7]
+func makePile:[]num n:num
     arr:[]num
     for i := range n
         arr = arr + [n+2*i]
@@ -16,11 +16,11 @@ func make_a_pilen:[]num n:num
 end
 
 func test
-    assert [3 5 7] (make_a_pilen 3)
-    assert [4 6 8 10] (make_a_pilen 4)
-    assert [5 7 9 11 13] (make_a_pilen 5)
-    assert [6 8 10 12 14 16] (make_a_pilen 6)
-    assert [8 10 12 14 16 18 20 22] (make_a_pilen 8)
+    assert [3 5 7] (makePile 3)
+    assert [4 6 8 10] (makePile 4)
+    assert [5 7 9 11 13] (makePile 5)
+    assert [6 8 10 12 14 16] (makePile 6)
+    assert [8 10 12 14 16 18 20 22] (makePile 8)
 end
 
 // Test boilerplate

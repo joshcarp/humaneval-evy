@@ -1,20 +1,23 @@
-// Return a greatest common divisor of two integers a and b
-// gcd(3, 5) // 1
-// gcd(25, 15) // 5
-func gcd:num a:num b:num
-    while b != 0
-        tmp := a
-        a = b
-        b = tmp % b
+// For a given string, flip lowercase characters to uppercase and uppercase to lowercase.
+// flipCase "Hello" // "hELLO"
+func flipCase:string str:string
+    result:string
+    for i := range (len str)
+        ch := str[i]
+        if "a" <= ch
+            result = result + (upper ch)
+        else
+            result = result + (lower ch)
+        end
+
     end
-    return a
+    return result
 end
 
 func test
-    assert 1 (gcd 3 7)
-    assert 5 (gcd 10 15)
-    assert 7 (gcd 49 14)
-    assert 12 (gcd 144 60)
+    assert "" (flipCase "")
+    assert "hELLO!" (flipCase "Hello!")
+    assert "tHESE VIOLENT DELIGHTS HAVE VIOLENT ENDS" (flipCase "These violent delights have violent ends")
 end
 
 // Test boilerplate
@@ -41,3 +44,4 @@ end
 
 test
 print_result
+

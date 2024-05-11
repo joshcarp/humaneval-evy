@@ -1,20 +1,19 @@
-// Return a greatest common divisor of two integers a and b
-// gcd(3, 5) // 1
-// gcd(25, 15) // 5
-func gcd:num a:num b:num
-    while b != 0
-        tmp := a
-        a = b
-        b = tmp % b
+// Filter an input list of strings only for ones that start with a given prefix.
+// filterByPrefix([], "a") // []
+// filterByPrefix(["abc", "bcd", "cde", "array"], "a") // ["abc", "array"]
+func filterByPrefix:[]string strings:[]string prefix:string
+    result:[]string
+    for s := range strings
+        if startswith s prefix
+            result = result + [s]
+        end
     end
-    return a
+    return result
 end
 
 func test
-    assert 1 (gcd 3 7)
-    assert 5 (gcd 10 15)
-    assert 7 (gcd 49 14)
-    assert 12 (gcd 144 60)
+    assert [] (filterByPrefix [] "john")
+    assert ["xxx" "xxxAAA" "xxx"] (filterByPrefix ["xxx" "asd" "xxy" "john doe" "xxxAAA" "xxx"] "xxx")
 end
 
 // Test boilerplate
@@ -41,3 +40,4 @@ end
 
 test
 print_result
+

@@ -1,20 +1,20 @@
-// Return a greatest common divisor of two integers a and b
-// gcd(3, 5) // 1
-// gcd(25, 15) // 5
-func gcd:num a:num b:num
-    while b != 0
-        tmp := a
-        a = b
-        b = tmp % b
+// For a given number n, find the largest number that divides n evenly, smaller than n
+// largestDivisor(15) // 5
+func largestDivisor:num n:num
+    for i := range n-1 0 -1
+        if n % i == 0
+            return i
+        end
     end
-    return a
+    return -1
 end
 
 func test
-    assert 1 (gcd 3 7)
-    assert 5 (gcd 10 15)
-    assert 7 (gcd 49 14)
-    assert 12 (gcd 144 60)
+    assert 1 (largestDivisor 3)
+    assert 1 (largestDivisor 7)
+    assert 5 (largestDivisor 10)
+    assert 50 (largestDivisor 100)
+    assert 7 (largestDivisor 49)
 end
 
 // Test boilerplate
@@ -41,3 +41,4 @@ end
 
 test
 print_result
+

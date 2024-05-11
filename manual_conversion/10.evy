@@ -1,5 +1,5 @@
 // Test if given string is a palindrome
-func is_palindrome:bool str:string
+func isPalindrome:bool str:string
     return str == (reverse str)
 end
 
@@ -8,15 +8,15 @@ end
 // - Find the longest postfix of supplied string that is a palindrome.
 // - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.
 //
-//    make_palindrome("") // ""
-//    make_palindrome("cat") // "catac"
-//    make_palindrome("cata") // "catac"
-func make_palindrome:string str:string
+//    makePalindrome("") // ""
+//    makePalindrome("cat") // "catac"
+//    makePalindrome("cata") // "catac"
+func makePalindrome:string str:string
     if str == ""
         return ""
     end
     beginning_of_suffix := 0
-    while !(is_palindrome str[beginning_of_suffix:])
+    while !(isPalindrome str[beginning_of_suffix:])
         beginning_of_suffix = beginning_of_suffix + 1
     end
     return str + (reverse str[:beginning_of_suffix])
@@ -31,12 +31,12 @@ func reverse:string str:string
 end
 
 func test
-    assert "" (make_palindrome "")
-    assert "x" (make_palindrome "x")
-    assert "xyzyx" (make_palindrome "xyz")
-    assert "xyx" (make_palindrome "xyx")
-    assert "catac" (make_palindrome "cata")
-    assert "jerryrrej" (make_palindrome "jerry")
+    assert "" (makePalindrome "")
+    assert "x" (makePalindrome "x")
+    assert "xyzyx" (makePalindrome "xyz")
+    assert "xyx" (makePalindrome "xyx")
+    assert "catac" (makePalindrome "cata")
+    assert "jerryrrej" (makePalindrome "jerry")
 end
 
 // Test boilerplate

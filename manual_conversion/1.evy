@@ -4,10 +4,10 @@
 // brace is properly closed) and not nested within each other Ignore any
 // spaces in the input string.
 //
-//    separate_paren_groups "( ) (( )) (( )( ))"
+//    separateParenGroups "( ) (( )) (( )( ))"
 //    // ["()" "(())" "(()())"]
 //
-func separate_paren_groups:[]string paren_string:string
+func separateParenGroups:[]string paren_string:string
     result:[]string
     current_string:string
     current_depth:num
@@ -32,10 +32,10 @@ func separate_paren_groups:[]string paren_string:string
 end
 
 func test
-    assert ["(()())" "((()))" "()" "((())()())"] (separate_paren_groups "(()()) ((())) () ((())()())")
-    assert ["()" "(())" "((()))" "(((())))"] (separate_paren_groups "() (()) ((())) (((())))")
-    assert ["(()(())((())))"] (separate_paren_groups "(()(())((())))")
-    assert ["()" "(())" "(()())"] (separate_paren_groups "( ) (( )) (( )( ))")
+    assert ["(()())" "((()))" "()" "((())()())"] (separateParenGroups "(()()) ((())) () ((())()())")
+    assert ["()" "(())" "((()))" "(((())))"] (separateParenGroups "() (()) ((())) (((())))")
+    assert ["(()(())((())))"] (separateParenGroups "(()(())((())))")
+    assert ["()" "(())" "(()())"] (separateParenGroups "( ) (( )) (( )( ))")
 end
 
 // Test boilerplate
