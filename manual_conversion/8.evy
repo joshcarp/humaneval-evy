@@ -35,7 +35,7 @@ func assert want:any got:any
 end
 
 func finished
-    printf "%v of %v tests passed\n" (total - fails) total
+    printf "%2.f of %2.f tests passed\n" (total - fails) total
 end
 
 test
