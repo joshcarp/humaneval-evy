@@ -45,9 +45,9 @@ func assert want:any got:any
     printf "want != got:\n want: %v\n got:  %v\n" want got
 end
 
-func print_result
+func printResult
     printf "%2.f of %2.f tests passed\n" (total - fails) total
 end
 
 test
-print_result
+printResult
