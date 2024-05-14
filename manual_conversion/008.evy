@@ -1,4 +1,8 @@
-func sum_product:[]num numbers:[]num
+// For a given array of number, return an array consisting of a sum and a product of all the integers in the array.
+// Empty sum should be equal to 0 and empty product should be equal to 1.
+// sumProduct [] // (0, 1)
+// sumProduct [1, 2, 3, 4] // (10, 24)
+func sumProduct:[]num numbers:[]num
     sum_value := 0
     prod_value := 1
     for number := range numbers
@@ -9,11 +13,11 @@ func sum_product:[]num numbers:[]num
 end
 
 func test
-    assert [0 1] (sum_product [])
-    assert [3 1] (sum_product [1 1 1])
-    assert [100 0] (sum_product [100 0])
-    assert [15 105] (sum_product [3 5 7])
-    assert [10 10] (sum_product [10])
+    assert [0 1] (sumProduct [])
+    assert [3 1] (sumProduct [1 1 1])
+    assert [100 0] (sumProduct [100 0])
+    assert [15 105] (sumProduct [3 5 7])
+    assert [10 10] (sumProduct [10])
 end
 
 func abs:num x:num

@@ -1,7 +1,7 @@
 // Filter an input list of strings only for ones that contain given substring
-// filter_by_substring [] "a" // []
-// filter_by_substring ["abc" "bacd" "cde" "array"] "a"  // ["abc" "bacd" "array"]
-func filter_by_substring:[]string strings:[]string substring:string
+// filter [] "a" // []
+// filter ["abc" "bacd" "cde" "array"] "a"  // ["abc" "bacd" "array"]
+func filter:[]string strings:[]string substring:string
     ans:[]string
     for str := range strings
         if (contains str substring)
@@ -21,10 +21,10 @@ func contains:bool haystack:string needle:string
 end
 
 func test
-    assert [] (filter_by_substring [] "john")
-    assert ["xxx" "xxxAAA" "xxx"] (filter_by_substring ["xxx" "asd" "xxy" "john doe" "xxxAAA" "xxx"] "xxx")
-    assert ["xxx" "aaaxxy" "xxxAAA" "xxx"] (filter_by_substring ["xxx" "asd" "aaaxxy" "john doe" "xxxAAA" "xxx"] "xx")
-    assert ["grunt" "prune"] (filter_by_substring ["grunt" "trumpet" "prune" "gruesome"] "run")
+    assert [] (filter [] "john")
+    assert ["xxx" "xxxAAA" "xxx"] (filter ["xxx" "asd" "xxy" "john doe" "xxxAAA" "xxx"] "xxx")
+    assert ["xxx" "aaaxxy" "xxxAAA" "xxx"] (filter ["xxx" "asd" "aaaxxy" "john doe" "xxxAAA" "xxx"] "xx")
+    assert ["grunt" "prune"] (filter ["grunt" "trumpet" "prune" "gruesome"] "run")
 end
 
 // Test boilerplate

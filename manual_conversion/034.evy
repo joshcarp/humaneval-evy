@@ -1,4 +1,4 @@
-// Return sorted unique elements in a list
+// Return sorted unique elements in an array
 // unique [5, 3, 5, 2, 3, 3, 9, 0, 123] [0, 2, 3, 5, 9, 123]
 func unique:[]num nums:[]num
     if (len nums) < 2

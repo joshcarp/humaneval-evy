@@ -1,8 +1,8 @@
 //  It is the last week of the semester and the teacher has to give the grades
 //  to students. The teacher has been making her own algorithm for grading.
 //  The only problem is, she has lost the code she used for grading.
-//  She has given you a list of GPAs for some students and you have to write
-//  a function that can output a list of letter grades using the following table:
+//  She has given you an array of GPAs for some students and you have to write
+//  a function that can output an array of letter grades using the following table:
 //           GPA       |    Letter grade
 //            4.0                A+
 //          > 3.7                A

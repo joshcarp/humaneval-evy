@@ -1,9 +1,9 @@
-// You're given a list of deposit and withdrawal operations on a bank account that starts with
+// You're given an array of deposit and withdrawal operations on a bank account that starts with
 // zero balance. Your task is to detect if at any point the balance of account falls below zero, and
 // at that point function should return true. Otherwise it should return False.
-// below_zero [1 2 3] // false
-// below_zero([1 2 -4 5] // true
-func below_zero:bool operations:[]num
+// belowZero [1 2 3] // false
+// belowZero([1 2 -4 5] // true
+func belowZero:bool operations:[]num
     balance := 0
     for op := range (len operations)
         balance = balance + operations[op]
@@ -15,12 +15,12 @@ func below_zero:bool operations:[]num
 end
 
 func test
-    assert false (below_zero [])
-    assert false (below_zero [1 2 -3 1 2 -3])
-    assert true (below_zero [1 2 -4 5 6])
-    assert false (below_zero [1 -1 2 -2 5 -5 4 -4])
-    assert true (below_zero [1 -1 2 -2 5 -5 4 -5])
-    assert true (below_zero [1 -2 2 -2 5 -5 4 -4])
+    assert false (belowZero [])
+    assert false (belowZero [1 2 -3 1 2 -3])
+    assert true (belowZero [1 2 -4 5 6])
+    assert false (belowZero [1 -1 2 -2 5 -5 4 -4])
+    assert true (belowZero [1 -1 2 -2 5 -5 4 -5])
+    assert true (belowZero [1 -2 2 -2 5 -5 4 -4])
 end
 
 // Test boilerplate

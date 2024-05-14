@@ -1,10 +1,10 @@
 // brackets is a string of "<" and ">". return true if every opening bracket
 // has a corresponding closing bracket.
 //
-// correct_bracketing "<" // false
-// correct_bracketing "<>" // true
-// correct_bracketing "<<><>>" // true
-// correct_bracketing "><<>" // false
+// correctBracketing "<" // false
+// correctBracketing "<>" // true
+// correctBracketing "<<><>>" // true
+// correctBracketing "><<>" // false
 func checkBrackets:bool str:string
     depth := 0
     for ch := range str

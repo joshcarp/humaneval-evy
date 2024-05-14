@@ -3,7 +3,7 @@
 //  The number of stones in the next level is:
 //      - the next odd number if n is odd.
 //      - the next even number if n is even.
-//  Return the number of stones in each level in a list, where element at index
+//  Return the number of stones in each level in an array, where element at index
 //  i represents the number of stones in the level (i+1).
 //
 //  makePile 3 //  [3, 5, 7]

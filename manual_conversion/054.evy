@@ -5,7 +5,6 @@
 // sameChars "eabcd" "dddddddabc" // false
 // sameChars "abcd" "dddddddabce" // false
 // sameChars "eabcdzzzz" "dddzzzzzzzddddabc" // false
-
 func sameChars:bool s1:string s2:string
     return (set s1) == (set s2)
 end
