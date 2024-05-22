@@ -1,0 +1,23 @@
+// Input are two strings a and b consisting only of 1s and 0s.
+// Perform binary XOR on these inputs and return result also as a string.
+//
+//    stringXor "010" "110" //  100
+func stringXor:string a:string b:string
+    res:string
+    for i := range (len a)
+        if a[i] == b[i]
+            res = res + "0"
+        else
+            res = res + "1"
+        end
+    end
+    return res
+end
+
+func test
+    assert "010010" (stringXor "111000" "101010")
+    assert "0" (stringXor "1" "1")
+    assert "0101" (stringXor "0101" "0000")
+end
+
+test

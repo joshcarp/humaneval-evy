@@ -1,0 +1,46 @@
+// From a supplied list of numbers (of length at least two) select and return
+// two that are the closest to each other and return them in order
+// (smaller number, larger number).
+//
+// findClosest [1.0 2.0 3.0 4.0 5.0 2.2] // [2.0 2.2]
+// findClosest [1.0 2.0 3.0 4.0 5.0 2.0] // [2.0 2.0]
+func findClosest:[]num nums:[]num
+    distance := -1
+    length := len nums
+    result := [0] * 2
+
+    for i := range length
+        for j := range length
+            if i != j
+                d := abs nums[i]-nums[j]
+                if d < distance or distance == -1
+                    distance = d
+                    result[0] = nums[i]
+                    result[1] = nums[j]
+                end
+            end
+        end
+    end
+    if result[1] < result[0]
+        return [result[1] result[0]]
+    end
+    return result
+end
+
+func abs:num n:num
+    if n >= 0
+        return n
+    end
+    return -n
+end
+
+func test
+    assert [3.9 4] (findClosest [1 2 3.9 4 5 2.2])
+    assert [5 5.9] (findClosest [1 2 5.9 4 5])
+    assert [2 2.2] (findClosest [1 2 3 4 5 2.2])
+    assert [2 2] (findClosest [1 2 3 4 5 2])
+    assert [2.2 3.1] (findClosest [1.1 2.2 3.1 4.1 5.1])
+end
+
+test
+

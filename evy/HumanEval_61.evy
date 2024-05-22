@@ -1,0 +1,38 @@
+// checkBrackets returns true if the if every opening bracket
+// has a corresponding closing bracket in the  input string.
+//
+// checkBrackets "(" // false
+// checkBrackets "()" // true
+// checkBrackets "(()())" // true
+// checkBrackets ")(()" // false
+func checkBrackets:bool input:string
+    depth := 0
+    for c := range input
+        if c == "("
+            depth = depth + 1
+        else
+            depth = depth - 1
+        end
+        if depth < 0
+            return false
+        end
+    end
+    return depth == 0
+end
+
+func test
+    assert true (checkBrackets "()")
+    assert true (checkBrackets "(()())")
+    assert true (checkBrackets "()()(()())()")
+    assert true (checkBrackets "()()((()()())())(()()(()))")
+    assert false (checkBrackets "((()())))")
+    assert false (checkBrackets ")(()")
+    assert false (checkBrackets "(")
+    assert false (checkBrackets "((((")
+    assert false (checkBrackets ")")
+    assert false (checkBrackets "(()")
+    assert false (checkBrackets "()()(()())())(()")
+    assert false (checkBrackets "()()(()())()))()")
+end
+
+test

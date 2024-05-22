@@ -1,0 +1,25 @@
+// Find how many times a given substring can be found in the original string.
+// Count overlapping cases.
+// findTimes " "" // 0
+// findTimes "aa" "" // 3
+// findTimes "aaa" "a" // 3
+func findTimes:num str:string sub:string
+    times := 0
+    rend := (len str) - (len sub) + 1
+    for i := range rend
+        if str[i:i + (len sub)] == sub
+            times = times + 1
+        end
+    end
+    return times
+end
+
+func test
+    assert 0 (findTimes "" "x")
+    assert 4 (findTimes "xyxyxyx" "x")
+    assert 4 (findTimes "cacacacac" "cac")
+    assert 1 (findTimes "john doe" "john")
+end
+
+test
+

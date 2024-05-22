@@ -1,0 +1,26 @@
+// Checks if given string is a palindrome
+// isPalindrome "" // true
+// isPalindrome "aba" // true
+// isPalindrome "aaaaa" // true
+// isPalindrome "zbcd" // false
+func isPalindrome:bool str:string
+    length := len str
+    for i := range (floor length/2)
+        if str[i] != str[-(i + 1)]
+            return false
+        end
+    end
+    return true
+end
+
+func test
+    assert true (isPalindrome "")
+    assert true (isPalindrome "aba")
+    assert true (isPalindrome "aaaaa")
+    assert false (isPalindrome "zbcd")
+    assert true (isPalindrome "xywyx")
+    assert false (isPalindrome "xywyz")
+    assert false (isPalindrome "xywzx")
+end
+
+test

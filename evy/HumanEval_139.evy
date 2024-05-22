@@ -1,0 +1,26 @@
+//  The special factorial is defined as:
+//  brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!
+//  where n > 0
+//  For example:
+//  specialFact 4 //  288
+//  The function will receive an integer as input and should return the special
+//  factorial of this integer.
+func specialFact:num n:num
+    fact := 1
+    result := 1
+    for i := range 1 n+1
+        fact = fact * i
+        result = result * fact
+    end
+    return result
+end
+
+func test
+    assert 2 (specialFact 2)
+    assert 288 (specialFact 4)
+    assert 34560 (specialFact 5)
+    assert 125411328000 (specialFact 7)
+    assert 1 (specialFact 1)
+end
+
+test

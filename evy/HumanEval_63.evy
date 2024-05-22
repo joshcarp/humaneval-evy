@@ -1,0 +1,33 @@
+// The fib3 number sequence is a sequence similar to the Fibonacci sequence
+// that's defined as follows:
+// (fib3 0) == 0
+// (fib3 1) == 0
+// (fib3 2) == 1
+// (fib3 n) == (fib3 n-1) + (fib3 n-2) + fib3 n-3).
+// Please write a function to efficiently compute the n-th element of the fib3
+// number sequence.
+// fib3 1 // 0
+// fib3 5 // 4
+// fib3 8 // 24
+func fib3:num n:num
+    result := [0 0 1]
+    if n < 3
+        return result[n]
+    end
+    for range n-2
+        result = result + [result[-1]+result[-2]+result[-3]]
+    end
+    return result[-1]
+end
+
+func test
+    assert 1 (fib3 2)
+    assert 0 (fib3 1)
+    assert 4 (fib3 5)
+    assert 24 (fib3 8)
+    assert 81 (fib3 10)
+    assert 274 (fib3 12)
+    assert 927 (fib3 14)
+end
+
+test

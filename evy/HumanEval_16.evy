@@ -1,0 +1,21 @@
+//  Given a string, find out how many distinct characters (regardless of case) does it consist of
+//  countDistinctCharacters('xyzXYZ') // 3
+//  countDistinctCharacters('Jerry') // 4
+func countDistinctCharacters:num str:string
+    set := {}
+    for s := range str
+        u := upper s
+        set[u] = true
+    end
+    return len set
+end
+
+func test
+    assert 0 (countDistinctCharacters "")
+    assert 5 (countDistinctCharacters "abcde")
+    assert 5 (countDistinctCharacters "abcde"+"cade"+"CADE")
+    assert 1 (countDistinctCharacters "aaaaAAAAaaaa")
+    assert 5 (countDistinctCharacters "Jerry jERRY JeRRRY")
+end
+
+test

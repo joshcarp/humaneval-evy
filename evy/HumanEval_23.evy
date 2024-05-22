@@ -1,0 +1,15 @@
+// Return length of given string
+// strlen "" // 0
+// strlen "abc" // 3
+func strlen:num str:string
+    return len str
+end
+
+func test
+    assert 0 (strlen "")
+    assert 1 (strlen "x")
+    assert 9 (strlen "asdasnakj")
+end
+
+test
+

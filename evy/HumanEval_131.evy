@@ -1,0 +1,34 @@
+//  Given a positive integer n, return the product of the odd digits.
+//  Return 0 if all digits are even.
+//  For example:
+//  digitProd 1 // 1
+//  digitProd 4 // 0
+//  digitProd 235 // 15
+func digitProd:num n:num
+    product := 1
+    hasOdds := false
+    while n > 0
+        digit := n % 10
+        if digit % 2 == 1
+            product = product * digit
+            hasOdds = true
+        end
+        n = floor n/10
+    end
+    if hasOdds
+        return product
+    end
+    return 0
+end
+
+func test
+    assert 5 (digitProd 5)
+    assert 5 (digitProd 54)
+    assert 1 (digitProd 120)
+    assert 5 (digitProd 5014)
+    assert 315 (digitProd 98765)
+    assert 2625 (digitProd 5576543)
+    assert 0 (digitProd 2468)
+end
+
+test

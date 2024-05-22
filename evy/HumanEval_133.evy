@@ -1,0 +1,34 @@
+//  You are given a list of numbers.
+//  You need to return the sum of squared numbers in the given list,
+//  round each element in the list to the upper int (Ceiling) first.
+//  Examples:
+//  For lst = [1,2,3] the output should be 14
+//  For lst = [1,4,9] the output should be 98
+//  For lst = [1,3,5,7] the output should be 84
+//  For lst = [1.4,4.2,0] the output should be 29
+//  For lst = [-2.4,1,1] the output should be 6
+func squares:num nums:[]num
+    result := 0
+    for n := range nums
+        n = ceil n
+        result = result + n * n
+    end
+    return result
+end
+
+func test
+    assert 14 (squares [1 2 3])
+    assert 14 (squares [1 2 3])
+    assert 84 (squares [1 3 5 7])
+    assert 29 (squares [1.4 4.2 0])
+    assert 6 (squares [-2.4 1 1])
+    assert 10230 (squares [100 1 15 2])
+    assert 200000000 (squares [10000 10000])
+    assert 75 (squares [-1.4 4.6 6.3])
+    assert 1086 (squares [-1.4 17.9 18.9 19.9])
+    assert 0 (squares [0])
+    assert 1 (squares [-1])
+    assert 2 (squares [-1 1 0])
+end
+
+test

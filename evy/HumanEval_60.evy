@@ -1,0 +1,19 @@
+// sum is a function that sums numbers from 1 to n.
+// sum 30 // 465
+// sum 100 // 5050
+// sum 5 // 15
+// sum 10 // 55
+// sum 1 // 1
+func sum:num n:num
+    return n * (n + 1) / 2
+end
+
+func test
+    assert 1 (sum 1)
+    assert 21 (sum 6)
+    assert 66 (sum 11)
+    assert 465 (sum 30)
+    assert 5050 (sum 100)
+end
+
+test

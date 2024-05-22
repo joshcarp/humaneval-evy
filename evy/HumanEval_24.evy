@@ -1,0 +1,21 @@
+// For a given number n, find the largest number that divides n evenly, smaller than n
+// largestDivisor(15) // 5
+func largestDivisor:num n:num
+    for i := range n-1 0 -1
+        if n % i == 0
+            return i
+        end
+    end
+    return -1
+end
+
+func test
+    assert 1 (largestDivisor 3)
+    assert 1 (largestDivisor 7)
+    assert 5 (largestDivisor 10)
+    assert 50 (largestDivisor 100)
+    assert 7 (largestDivisor 49)
+end
+
+test
+

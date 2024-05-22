@@ -1,0 +1,30 @@
+// Input is a space-delimited string of numerals from "zero" to "nine".
+// Valid choices are "zero", "one", "two", "three", "four", "five", "six", "seven", "eight" and "nine".
+// Return the string with numbers sorted from smallest to largest
+// sortNumbers "three one five" // "one three five"
+func sortNumbers:string numbers:string
+    map := {zero:0 one:1 two:2 three:3 four:4 five:5 six:6 seven:7 eight:8 nine:9}
+    arr := split numbers " "
+    // bubble sort
+    for endIdx := range (len arr)-1 0 -1
+        for i := range endIdx
+            if map[arr[i]] > map[arr[i + 1]]
+                tmp := arr[i]
+                arr[i] = arr[i + 1]
+                arr[i + 1] = tmp
+            end
+        end
+    end
+    return join arr " "
+end
+
+func test
+    assert "" (sortNumbers "")
+    assert "three" (sortNumbers "three")
+    assert "three five nine" (sortNumbers "three five nine")
+    assert "zero four five seven eight nine" (sortNumbers "five zero four seven nine eight")
+    assert "zero one two three four five six" (sortNumbers "six five four three two one zero")
+end
+
+test
+

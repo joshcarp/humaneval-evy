@@ -1,0 +1,29 @@
+// removeVowels is a function that takes string and returns string without vowels.
+// removeVowels "" // ""
+// removeVowels "abcdefghijklm"  // "bcdfghjklm"
+// removeVowels "abcdef"  // "bcdf"
+// removeVowels "aaaaa"  // "
+// removeVowels "aaBAA"  // "B"
+// removeVowels "zbcd"  // "zbcd"
+func removeVowels:string str:string
+    vowels := {a:true e:true i:true o:true u:true A:true E:true I:true O:true U:true}
+    result := ""
+    for ch := range str
+        if !(has vowels ch)
+            result = result + ch
+        end
+    end
+    return result
+end
+
+func test
+    assert "" (removeVowels "")
+    assert "bcdfghjklm" (removeVowels "abcdefghijklm")
+    assert "fdcb" (removeVowels "fedcba")
+    assert "" (removeVowels "eeeee")
+    assert "cB" (removeVowels "acBAA")
+    assert "cB" (removeVowels "EcBOO")
+    assert "ybcd" (removeVowels "ybcd")
+end
+
+test

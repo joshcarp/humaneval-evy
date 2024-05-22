@@ -1,0 +1,30 @@
+// Filter an input list of strings only for ones that contain given substring
+// filter [] "a" // []
+// filter ["abc" "bacd" "cde" "array"] "a"  // ["abc" "bacd" "array"]
+func filter:[]string strings:[]string substring:string
+    ans:[]string
+    for str := range strings
+        if (contains str substring)
+            ans = ans + [str]
+        end
+    end
+    return ans
+end
+
+func contains:bool haystack:string needle:string
+    for i := range ((len haystack) - (len needle) + 1)
+        if haystack[i:i + (len needle)] == needle
+            return true
+        end
+    end
+    return false
+end
+
+func test
+    assert [] (filter [] "john")
+    assert ["xxx" "xxxAAA" "xxx"] (filter ["xxx" "asd" "xxy" "john doe" "xxxAAA" "xxx"] "xxx")
+    assert ["xxx" "aaaxxy" "xxxAAA" "xxx"] (filter ["xxx" "asd" "aaaxxy" "john doe" "xxxAAA" "xxx"] "xx")
+    assert ["grunt" "prune"] (filter ["grunt" "trumpet" "prune" "gruesome"] "run")
+end
+
+test

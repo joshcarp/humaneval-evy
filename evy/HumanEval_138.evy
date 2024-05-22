@@ -1,0 +1,21 @@
+//  Evaluate whether the given number n can be written as the sum of exactly 4 positive even numbers
+//  Example
+//  isSum 4 // false
+//  isSum 6 // false
+//  isSum 8 // true
+func isSum:bool n:num
+    return n % 2 == 0 and n >= 8
+end
+
+func test
+    assert false (isSum 4)
+    assert false (isSum 6)
+    assert true (isSum 8)
+    assert true (isSum 10)
+    assert false (isSum 11)
+    assert true (isSum 12)
+    assert false (isSum 13)
+    assert true (isSum 16)
+end
+
+test

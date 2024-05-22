@@ -1,0 +1,30 @@
+// Check if two words have the same characters.
+// sameChars "eabcdzzzz" "dddzzzzzzzddeddabc" // true
+// sameChars "abcd" "dddddddabc" // true
+// sameChars "dddddddabc" "abcd" // true
+// sameChars "eabcd" "dddddddabc" // false
+// sameChars "abcd" "dddddddabce" // false
+// sameChars "eabcdzzzz" "dddzzzzzzzddddabc" // false
+func sameChars:bool s1:string s2:string
+    return (set s1) == (set s2)
+end
+
+func set:{}bool s:string
+    result:{}bool
+    for c := range s
+        result[c] = true
+    end
+    return result
+end
+
+func test
+    assert true (sameChars "eabcdzzzz" "dddzzzzzzzddeddabc")
+    assert true (sameChars "abcd" "dddddddabc")
+    assert true (sameChars "dddddddabc" "abcd")
+    assert false (sameChars "eabcd" "dddddddabc")
+    assert false (sameChars "abcd" "dddddddabcf")
+    assert false (sameChars "eabcdzzzz" "dddzzzzzzzddddabc")
+    assert false (sameChars "aabb" "aaccc")
+end
+
+test

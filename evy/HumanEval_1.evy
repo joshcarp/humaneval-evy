@@ -1,0 +1,41 @@
+// Input to this function is a string containing multiple groups of nested
+// parentheses. Your goal is to separate those group into separate strings
+// and return the list of those. Separate groups are balanced (each open
+// brace is properly closed) and not nested within each other Ignore any
+// spaces in the input string.
+//
+//    separateParenGroups "( ) (( )) (( )( ))"
+//    // ["()" "(())" "(()())"]
+//
+func separateParenGroups:[]string paren_string:string
+    result:[]string
+    current_string:string
+    current_depth:num
+    current_depth = 0
+
+    for c := range (len paren_string)
+        if paren_string[c] == "("
+            current_depth = current_depth + 1
+            current_string = current_string + paren_string[c]
+        else if paren_string[c] == ")"
+            current_depth = current_depth - 1
+            current_string = current_string + paren_string[c]
+
+            if current_depth == 0
+                result = result + [current_string]
+                current_string = ""
+            end
+        end
+    end
+
+    return result
+end
+
+func test
+    assert ["(()())" "((()))" "()" "((())()())"] (separateParenGroups "(()()) ((())) () ((())()())")
+    assert ["()" "(())" "((()))" "(((())))"] (separateParenGroups "() (()) ((())) (((())))")
+    assert ["(()(())((())))"] (separateParenGroups "(()(())((())))")
+    assert ["()" "(())" "(()())"] (separateParenGroups "( ) (( )) (( )( ))")
+end
+
+test

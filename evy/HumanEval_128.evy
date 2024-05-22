@@ -1,0 +1,52 @@
+//  You are given an array arr of integers and you need to return sum of
+//  absolute values of the integers multiplied by product of all signs of
+//  each number in the array, represented by 1, -1 or 0. Note: return false
+//  for empty arr.
+//
+//  Example:
+//  signedAbsSum  [1, 2, 2, -4] // -9
+//  signedAbsSum  [0, 1] // 0
+//  signedAbsSum  [] // false
+func signedAbsSum:any nums:[]num
+    if (len nums) == 0
+        return false
+    end
+    sum := 0
+    s := 1
+
+    for n := range nums
+        sum = sum + (abs n)
+        s = s * (sign n)
+    end
+    return s * sum
+end
+
+func abs:num n:num
+    if n < 0
+        return -n
+    end
+    return n
+end
+
+func sign:num n:num
+    if n < 0
+        return -1
+    end
+    if n > 0
+        return 1
+    end
+    return 0
+end
+
+func test
+    assert -9 (signedAbsSum [1 2 2 -4])
+    assert 0 (signedAbsSum [0 1])
+    assert -10 (signedAbsSum [1 1 1 2 3 -1 1])
+    assert false (signedAbsSum [])
+    assert 20 (signedAbsSum [2 4 1 2 -1 -1 9])
+    assert 4 (signedAbsSum [-1 1 -1 1])
+    assert -4 (signedAbsSum [-1 1 1 1])
+    assert 0 (signedAbsSum [-1 1 1 0])
+end
+
+test

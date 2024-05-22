@@ -1,0 +1,24 @@
+// For a given string, flip lowercase characters to uppercase and uppercase to lowercase.
+// flipCase "Hello" // "hELLO"
+func flipCase:string str:string
+    result:string
+    for i := range (len str)
+        ch := str[i]
+        if "a" <= ch
+            result = result + (upper ch)
+        else
+            result = result + (lower ch)
+        end
+
+    end
+    return result
+end
+
+func test
+    assert "" (flipCase "")
+    assert "hELLO!" (flipCase "Hello!")
+    assert "tHESE VIOLENT DELIGHTS HAVE VIOLENT ENDS" (flipCase "These violent delights have violent ends")
+end
+
+test
+

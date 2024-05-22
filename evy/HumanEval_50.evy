@@ -1,0 +1,32 @@
+abc := "abcdefghijklmnopqrstuvwxyz"
+ord := {a:0 b:1 c:2 d:3 e:4 f:5 g:6 h:7 i:8 j:9 k:10 l:11 m:12 n:13 o:14 p:15 q:16 r:17 s:18 t:19 u:20 v:21 w:22 x:23 y:24 z:25}
+
+// encode returns encoded string by shifting every character by 5 in the
+// alphabet. Message is all lowercase ascii.
+func encode:string str:string
+    result := ""
+    for ch := range str
+        result = result + abc[(ord[ch] + 5) % 26]
+    end
+    return result
+end
+
+// decode takes as input string encoded with encode_shift function. Returns
+// decoded string.
+func decode:string str:string
+    result := ""
+    for ch := range str
+        result = result + abc[(ord[ch] + 21) % 26]
+    end
+    return result
+end
+
+func test
+    assert "" (encode "")
+    assert "" (decode "")
+    assert "fg" (encode "ab")
+    assert "ab" (decode "fg")
+    assert abc (decode (encode abc))
+end
+
+test

@@ -1,0 +1,15 @@
+// Concatenate list of strings into a single string
+// concatenate []  // ""
+// concatenate ["a", "b", "c"] "abc"
+func concatenate:string strings:[]string
+    return (join strings "")
+end
+
+func test
+    assert "" (concatenate [])
+    assert "xyz" (concatenate ["x" "y" "z"])
+    assert "xyzwk" (concatenate ["x" "y" "z" "w" "k"])
+end
+
+test
+

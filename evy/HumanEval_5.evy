@@ -1,0 +1,22 @@
+// Insert a number 'delimeter' between every two consecutive elements of input list `numbers'
+// intersperse [] 4 //
+// intersperse [1 2 3] 4 // [1 4 2 4 3]
+func intersperse:[]num numbers:[]num delimeter:num
+    if (len numbers) == 0
+        return []
+    end
+    result:[]num
+    for number := range numbers[:-1]
+        result = result + [number] + [delimeter]
+    end
+    result = result + [numbers[-1]]
+    return result
+end
+
+func test
+    assert [] (intersperse [] 7)
+    assert [5 8 6 8 3 8 2] (intersperse [5 6 3 2] 8)
+    assert [2 2 2 2 2] (intersperse [2 2 2] 2)
+end
+
+test
